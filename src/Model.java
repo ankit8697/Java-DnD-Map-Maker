@@ -4,6 +4,7 @@ public class Model {
 
     public class MapModel {
         public static final int DEFAULT_SIDE_LENGTH = 5;
+
         private class Cube {
             private int[] coordinates; // bottom-left-back corner of the cube
             private int sideLength;
