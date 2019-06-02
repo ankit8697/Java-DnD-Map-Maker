@@ -1,18 +1,18 @@
 public class Creature {
-    boolean isPlayer;
-    int hp;
-    int maxHP;
-    int initiativeBonus;
-    int walkSpeed;
-    int swimSpeed;
-    int flySpeed;
-    int burrowSpeed;
-    int climbSpeed;
-    int[] defaultSpeeds;
-    String creatureType;
-    int[] attackDistances;
-    String name;
-    Cube currentLocation;
+    private boolean isPlayer;
+    private int hp;
+    private int maxHP;
+    private int initiativeBonus;
+    private int walkSpeed;
+    private int swimSpeed;
+    private int flySpeed;
+    private int burrowSpeed;
+    private int climbSpeed;
+    private int[] defaultSpeeds;
+    private String creatureType;
+    private int[] attackDistances;
+    private String name;
+    private Cube currentLocation;
 
     public Creature(boolean isPlayer,
                     int hp,
@@ -172,7 +172,9 @@ public class Creature {
     }
 
     public void setCurrentLocation(Cube currentLocation) {
+        this.currentLocation.removeFromListOfCreatures(this);
         this.currentLocation = currentLocation;
+        this.currentLocation.addToListOfCreatures(this);
     }
 
     public void delete() {

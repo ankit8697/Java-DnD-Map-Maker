@@ -13,18 +13,20 @@ public class Model {
         public MapModel(int x, int y, int z) {
             this.terrains =  new ArrayList<>();
             this.creatures =  new ArrayList<>();
-            this.map = new ArrayList<ArrayList<ArrayList<Cube>>>();
+            this.map = new ArrayList<>();
             int[] dimensionsHolder = {x,y,z};
             this.dimensions = dimensionsHolder;
-            ArrayList<ArrayList<Cube>> plane = new ArrayList<ArrayList<Cube>>();
-            for(int yCoord = 0 ; yCoord < y ; yCoord++) {
-                ArrayList<Cube> row = new ArrayList<Cube>();
-                for(int xCoord = 0 ; xCoord < x ; xCoord++) {
-                    row.add(new Cube(xCoord, yCoord, z));
+            ArrayList<ArrayList<ArrayList<Cube>>> plane = new ArrayList<>();
+            for(int xCoord = 0 ; xCoord < x ; xCoord++) {
+                ArrayList<ArrayList<Cube>> row = new ArrayList<>();
+                for(int yCoord = 0 ; yCoord < y ; yCoord++) {
+                    ArrayList<Cube> item = new ArrayList<>();
+                    item.add(new Cube(xCoord, yCoord, z));
+                    row.add(item);
                 }
                 plane.add(row);
             }
-            map.add(plane);
+            map = plane;
         }
 
         public void addTerrain(List<Cube> cubes, Terrain terrain) {
@@ -48,5 +50,18 @@ public class Model {
             creature.delete();
             creatures.remove(creature);
         }
+
+        public ArrayList<Creature> getCreaturesInColumn(int x, int y) {
+            ArrayList<Cube> column = map.get(x).get(y);
+            ArrayList<Creature> creatures = new ArrayList<>();
+            for (Cube cube : column) {
+                for (Creature creature : cube.getListOfCreatures()) {
+                    creatures.add(creature);
+                }
+            }
+            return creatures;
+        }
+
+
     }
 }

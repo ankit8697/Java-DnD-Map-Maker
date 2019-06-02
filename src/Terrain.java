@@ -69,10 +69,17 @@ public class Terrain {
     }
 
     public void setCurrentLocations(ArrayList<Cube> currentLocations) {
+        for (Cube cube : currentLocations) {
+            cube.removeFromListOfTerrain(this);
+        }
         this.currentLocations = currentLocations;
+        for (Cube cube : currentLocations) {
+            cube.addToListOfTerrain(this);
+        }
     }
 
     public void addToCurrentLocations(Cube cube) {
+        cube.addToListOfTerrain(this);
         this.currentLocations.add(cube);
     }
 
