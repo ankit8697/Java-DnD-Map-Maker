@@ -6,19 +6,22 @@ public class Terrain {
     boolean eventOnEnter;
     boolean eventOnEndTurn;
     String name;
+    Cube[] currentLocations;
 
     public Terrain(ArrayList<Integer> moveCostArray,
                    ArrayList<Boolean> isPassableArray,
                    boolean eventOnStartTurn,
                    boolean eventOnEnter,
                    boolean eventOnEndTurn,
-                   String name) {
+                   String name,
+                   Cube[] currentLocations) {
         this.moveCostArray = moveCostArray;
         this.isPassableArray = isPassableArray;
         this.eventOnStartTurn = eventOnStartTurn;
         this.eventOnEnter = eventOnEnter;
         this.eventOnEndTurn = eventOnEndTurn;
         this.name = name;
+        this.currentLocations = currentLocations;
     }
 
     public ArrayList<Boolean> getIsPassableArray() {

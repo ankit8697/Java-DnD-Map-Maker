@@ -12,6 +12,7 @@ public class Creature {
     String creatureType;
     int[] attackDistances;
     String name;
+    Cube currentLocation;
 
     public Creature(boolean isPlayer,
                     int hp,
@@ -23,7 +24,8 @@ public class Creature {
                     int climbSpeed,
                     String creatureType,
                     int[] attackDistances,
-                    String name) {
+                    String name,
+                    Cube currentLocation) {
         this.isPlayer = isPlayer;
         this.hp = hp;
         this.maxHP = hp;
@@ -36,6 +38,7 @@ public class Creature {
         this.creatureType = creatureType;
         this.attackDistances = attackDistances;
         this.name = name;
+        this.currentLocation = currentLocation;
     }
 
     public int[] getDefaultSpeeds() {
