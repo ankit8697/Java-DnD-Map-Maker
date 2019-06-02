@@ -5,9 +5,20 @@ public class Terrain {
     boolean eventOnStartTurn;
     boolean eventOnEnter;
     boolean eventOnEndTurn;
+    String name;
 
-    public Terrain() {
-
+    public Terrain(ArrayList<Integer> moveCostArray,
+                   ArrayList<Boolean> isPassableArray,
+                   boolean eventOnStartTurn,
+                   boolean eventOnEnter,
+                   boolean eventOnEndTurn,
+                   String name) {
+        this.moveCostArray = moveCostArray;
+        this.isPassableArray = isPassableArray;
+        this.eventOnStartTurn = eventOnStartTurn;
+        this.eventOnEnter = eventOnEnter;
+        this.eventOnEndTurn = eventOnEndTurn;
+        this.name = name;
     }
 
     public ArrayList<Boolean> getIsPassableArray() {
