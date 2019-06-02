@@ -8,7 +8,7 @@ public class Cube {
     private int sideLength;
     private List<Creature> listOfCreatures; // List of all the creatures currently inside of the cube
     private List<Terrain> listOfTerrain; // any current terrain effects within the cube
-    public static final int DEFAULT_SIDE_LENGTH = 5;
+    private static final int DEFAULT_SIDE_LENGTH = 5;
 
     public Cube(int x, int y, int z) {
         int[] coordinatesHolder = {x, y, z};
