@@ -63,4 +63,20 @@ public class Terrain {
     public void setEventOnEndTurn(boolean eventOnEndTurn) {
         this.eventOnEndTurn = eventOnEndTurn;
     }
+
+    public ArrayList<Cube> getCurrentLocations() {
+        return currentLocations;
+    }
+
+    public void setCurrentLocations(ArrayList<Cube> currentLocations) {
+        this.currentLocations = currentLocations;
+    }
+
+    public void addToCurrentLocations(Cube cube) {
+        this.currentLocations.add(cube);
+    }
+
+    public void removeFromCurrentLocations(Cube cube) {
+        this.currentLocations.remove(cube);
+    }
 }

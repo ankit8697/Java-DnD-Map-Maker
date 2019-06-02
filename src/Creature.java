@@ -166,4 +166,12 @@ public class Creature {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Cube getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Cube currentLocation) {
+        this.currentLocation = currentLocation;
+    }
 }
