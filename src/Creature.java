@@ -10,6 +10,7 @@ public class Creature {
     int climbSpeed;
     int[] defaultSpeeds;
     String creatureType;
+    int[] attackDistances;
 
 
     public Creature(boolean isPlayer,
@@ -20,7 +21,8 @@ public class Creature {
                     int flySpeed,
                     int burrowSpeed,
                     int climbSpeed,
-                    String creatureType) {
+                    String creatureType,
+                    int[] attackDistances) {
         this.isPlayer = isPlayer;
         this.hp = hp;
         this.maxHP = hp;
@@ -31,6 +33,7 @@ public class Creature {
         this.burrowSpeed = burrowSpeed;
         this.climbSpeed = climbSpeed;
         this.creatureType = creatureType;
+        this.attackDistances = attackDistances;
     }
 
     public int[] getDefaultSpeeds() {
@@ -141,5 +144,13 @@ public class Creature {
 
     public void setMaxHP(int maxHP) {
         this.maxHP = maxHP;
+    }
+
+    public int[] getAttackDistances() {
+        return attackDistances;
+    }
+
+    public void setAttackDistances(int[] attackDistances) {
+        this.attackDistances = attackDistances;
     }
 }
