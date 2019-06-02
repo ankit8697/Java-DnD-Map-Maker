@@ -96,5 +96,12 @@ public class Model {
             }
             map.add(plane);
         }
+
+        public void addTerrain(List<Cube> cubes, Terrain terrain) {
+            for(Cube cube : cubes) {
+                cube.addToListOfTerrain(terrain);
+                terrain.addToCurrentLocations(cube);
+            }
+        }
     }
 }
