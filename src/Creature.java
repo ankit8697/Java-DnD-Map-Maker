@@ -174,4 +174,8 @@ public class Creature {
     public void setCurrentLocation(Cube currentLocation) {
         this.currentLocation = currentLocation;
     }
+
+    public void delete() {
+        this.currentLocation.removeFromListOfCreatures(this);
+    }
 }
