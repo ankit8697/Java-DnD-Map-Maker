@@ -62,6 +62,41 @@ public class Model {
             return creatures;
         }
 
+        public Cube getCube(int x, int y, int z) throws IndexOutOfBoundsException {
+            if (x > dimensions[0] || y > dimensions[1] || z > dimensions[2] ||
+                x < 0 || y < 0 || z < 0) {
+                throw new IndexOutOfBoundsException();
+            }
+
+            ArrayList<Cube> column = map.get(x).get(y);
+            int maxHeight = column.size();
+            if (z < maxHeight) {
+                return column.get(z);
+            }
+            else {
+                for (int i = maxHeight; i < z; i++) {
+                    column.add(null);
+                }
+                Cube newCube = new Cube(x, y, z);
+                column.add(newCube);
+                return newCube;
+            }
+        }
+
+        public ArrayList<Cube> getFullColumn(int x, int y) throws IndexOutOfBoundsException {
+            if (x > dimensions[0] || y > dimensions[1] ||
+                    x < 0 || y < 0) {
+                throw new IndexOutOfBoundsException();
+            }
+
+            int targetHeight = dimensions[2]+1;
+            ArrayList<Cube> column = map.get(x).get(y);
+            int currentHeight = column.size();
+            for (int i = currentHeight; i <= targetHeight; i++) {
+                column.add(new Cube(x, y, i));
+            }
+            return column;
+        }
 
     }
 }
