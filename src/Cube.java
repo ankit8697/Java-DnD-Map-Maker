@@ -14,8 +14,8 @@ public class Cube {
         int[] coordinatesHolder = {x, y, z};
         coordinates = coordinatesHolder;
         sideLength = DEFAULT_SIDE_LENGTH;
-        listOfCreatures = new ArrayList<Creature>();
-        listOfTerrain = new ArrayList<Terrain>();
+        listOfCreatures = new ArrayList<>();
+        listOfTerrain = new ArrayList<>();
     }
 
     public List<Creature> getListOfCreatures() {
@@ -66,7 +66,7 @@ public class Cube {
     }
 
     public int getDNDDistanceToLocation(int x, int y, int z) { // D&D does diagonals weirdly - don't ask
-        ArrayList<Integer> distanceList = new ArrayList<Integer>();
+        ArrayList<Integer> distanceList = new ArrayList<>();
         int[] distances = {x - this.coordinates[0], y - this.coordinates[1], z - this.coordinates[2]};
         for (int distance : distances) {
             distanceList.add(distance);
