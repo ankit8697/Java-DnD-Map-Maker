@@ -1,8 +1,8 @@
 import java.util.*;
-import java.lang.Math.*;
+import java.lang.Math;
 public class Model {
 
-    public class MapModel {
+    public class MapModel { // this is a comment
         public static final int DEFAULT_SIDE_LENGTH = 5;
 
         private ArrayList<ArrayList<ArrayList<Cube>>> map;
