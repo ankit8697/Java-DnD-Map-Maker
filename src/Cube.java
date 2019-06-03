@@ -65,7 +65,7 @@ public class Cube {
         return distance*this.sideLength;
     }
 
-    public int getDNDDistanceToLocation(int x, int y, int z) { // D&D does diagonals weirdly - don't ask
+    public double getDNDDistanceToLocation(int x, int y, int z) { // D&D does diagonals weirdly - don't ask
         ArrayList<Integer> distanceList = new ArrayList<>();
         int[] distances = {x - this.coordinates[0], y - this.coordinates[1], z - this.coordinates[2]};
         for (int distance : distances) {
@@ -76,6 +76,6 @@ public class Cube {
         int secondLargestDistance = distanceList.get(1) * sideLength;
         int diagonalsPrice = (int) (this.sideLength * Math.floor(secondLargestDistance / (2 * this.sideLength)));
         int distance = maxDistance + diagonalsPrice;
-        return distance;
+        return (double) distance;
     }
 }
