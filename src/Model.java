@@ -8,9 +8,12 @@ public class Model {
         private ArrayList<ArrayList<ArrayList<Cube>>> map;
         private ArrayList<Terrain> terrains;
         private ArrayList<Creature> creatures;
-        int[] dimensions;
+        private int[] dimensions;
+        DistanceStrategy distanceType;
+
 
         public MapModel(int x, int y, int z) {
+            distanceType = new DNDDistance();
             this.terrains =  new ArrayList<>();
             this.creatures =  new ArrayList<>();
             this.map = new ArrayList<>();
@@ -101,6 +104,59 @@ public class Model {
                 column.add(new Cube(x, y, i));
             }
             return column;
+        }
+
+        public ArrayList<Cube> getCircle(int r, int[] coordinates) {
+            int reqRadius = r/5;
+            ArrayList<Cube> cubes = new ArrayList<>();
+            for (int x = -reqRadius; x <= reqRadius; x++) {
+                if (!(x > dimensions[0] || x < 0)) {
+                    for (int y = -reqRadius; y <= reqRadius; y++) {
+                        if (!(y > dimensions[1] || y < 0)) {
+                            Cube currentCube = getCube(coordinates[0] + x, coordinates[1] + y, coordinates[2]);
+                            double distance = distanceType.distance(currentCube, coordinates[0], coordinates[1], coordinates[2]);
+                            if (distance <= (double) r + 2.5) {
+                                cubes.add(currentCube);
+                            }
+                        }
+                    }
+                }
+            }
+            return cubes;
+        }
+
+
+        public ArrayList<Cube> getSphere(int r, int[] coordinates) {
+            int reqRadius = r/5;
+            ArrayList<Cube> cubes = new ArrayList<>();
+            for (int x = -reqRadius; x <= reqRadius; x++) {
+                if (!(x > dimensions[0] || x < 0)) {
+                    for (int y = -reqRadius; y <= reqRadius; y++) {
+                        if (!(y > dimensions[1] || y < 0)) {
+                            for (int z = -reqRadius; z <= reqRadius; z++) {
+                                if (!(z > dimensions[2] || z < 0)) {
+                                    Cube currentCube = getCube(coordinates[0]+x, coordinates[1]+y, coordinates[2]+z);
+                                    double distance = distanceType.distance(currentCube, coordinates[0], coordinates[1], coordinates[2]);
+                                    if (distance <= (double) r+2.5) {
+                                        cubes.add(currentCube);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return cubes;
+        }
+
+        public ArrayList<Cube> getCylinder(int r, int[] coordinates) {
+            ArrayList<Cube> baseCubes = getCircle(r, coordinates);
+            ArrayList<Cube> cubes = new ArrayList<>();
+            for (Cube cube : baseCubes) {
+                ArrayList<Cube> column = getFullColumn(cube.getCoordinates()[0], cube.getCoordinates()[1]);
+                cubes.addAll(column);
+            }
+            return cubes;
         }
 
     }
