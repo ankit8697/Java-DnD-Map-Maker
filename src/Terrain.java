@@ -1,12 +1,12 @@
 import java.util.*;
 public class Terrain {
-    ArrayList<Integer> moveCostArray;
-    ArrayList<Boolean> isPassableArray;
-    boolean eventOnStartTurn;
-    boolean eventOnEnter;
-    boolean eventOnEndTurn;
-    String name;
-    ArrayList<Cube> currentLocations;
+    private ArrayList<Integer> moveCostArray;
+    private ArrayList<Boolean> isPassableArray;
+    private boolean eventOnStartTurn;
+    private boolean eventOnEnter;
+    private boolean eventOnEndTurn;
+    private String name;
+    private ArrayList<Cube> currentLocations;
 
     public Terrain(ArrayList<Integer> moveCostArray,
                    ArrayList<Boolean> isPassableArray,
@@ -63,4 +63,42 @@ public class Terrain {
     public void setEventOnEndTurn(boolean eventOnEndTurn) {
         this.eventOnEndTurn = eventOnEndTurn;
     }
+
+    public ArrayList<Cube> getCurrentLocations() {
+        return currentLocations;
+    }
+
+    public void setCurrentLocations(ArrayList<Cube> currentLocations) {
+        for (Cube cube : currentLocations) {
+            cube.removeFromListOfTerrain(this);
+        }
+        this.currentLocations = currentLocations;
+        for (Cube cube : currentLocations) {
+            cube.addToListOfTerrain(this);
+        }
+    }
+
+    public void addToCurrentLocations(Cube cube) {
+        cube.addToListOfTerrain(this);
+        this.currentLocations.add(cube);
+    }
+
+    public void removeFromCurrentLocations(Cube cube) {
+        this.currentLocations.remove(cube);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void delete() {
+        for (Cube cube : currentLocations) {
+            cube.removeFromListOfTerrain(this);
+        }
+    }
+
 }

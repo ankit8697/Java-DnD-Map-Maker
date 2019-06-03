@@ -2,3 +2,5 @@
 *.class
 .vscode
 output
+_windows
+_codestyles
