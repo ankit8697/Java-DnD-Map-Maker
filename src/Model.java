@@ -71,7 +71,12 @@ public class Model {
             ArrayList<Cube> column = map.get(x).get(y);
             int maxHeight = column.size();
             if (z < maxHeight) {
-                return column.get(z);
+                Cube output = column.get(z);
+                if (output == null) {
+                    output = new Cube(x, y, z);
+                    column.set(z, output);
+                }
+                return output;
             }
             else {
                 for (int i = maxHeight; i < z; i++) {
