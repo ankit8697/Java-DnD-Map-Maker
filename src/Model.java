@@ -5,9 +5,9 @@ public class Model {
     public class MapModel {
         public static final int DEFAULT_SIDE_LENGTH = 5;
 
-        public ArrayList<ArrayList<ArrayList<Cube>>> map;
-        public ArrayList<Terrain> terrains;
-        public ArrayList<Creature> creatures;
+        private ArrayList<ArrayList<ArrayList<Cube>>> map;
+        private ArrayList<Terrain> terrains;
+        private ArrayList<Creature> creatures;
         int[] dimensions;
 
         public MapModel(int x, int y, int z) {
