@@ -1,3 +1,6 @@
+import org.w3c.dom.css.RGBColor;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
@@ -197,6 +200,15 @@ public class MapModel { // this is a comment
     public void removeTerrainFromCubes(ArrayList<Cube> oldCubes, Terrain terrainToRemove){
         for(Cube cube: oldCubes){
             terrainToRemove.removeFromCurrentLocations(cube);
+        }
+    }
+
+    public ArrayList<RGBColor> getTerrainColorsInCube(Cube cube){
+        List<Terrain> terrainInCube = cube.getListOfTerrain();
+        List<RGBColor> terrainColors = new ArrayList<RGBColor>();
+        for(Terrain terrain: terrainInCube){
+            RGBColor color = terrain.getColor();
+            terrainColors.add(color);
         }
     }
 }
