@@ -13,6 +13,26 @@ public class MapModel { // this is a comment
     DistanceStrategy distanceType;
 
 
+    public MapModel(ArrayList<Creature> creatures, int x, int y, int z) {
+        distanceType = new DNDDistance();
+        this.terrains =  new ArrayList<>();
+        this.creatures =  creatures;
+        this.map = new ArrayList<>();
+        int[] dimensionsHolder = {x,y,z};
+        this.dimensions = dimensionsHolder;
+        ArrayList<ArrayList<ArrayList<Cube>>> plane = new ArrayList<>();
+        for(int xCoord = 0 ; xCoord < x ; xCoord++) {
+            ArrayList<ArrayList<Cube>> row = new ArrayList<>();
+            for(int yCoord = 0 ; yCoord < y ; yCoord++) {
+                ArrayList<Cube> item = new ArrayList<>();
+                item.add(new Cube(xCoord, yCoord, z));
+                row.add(item);
+            }
+            plane.add(row);
+        }
+        map = plane;
+    }
+
     public MapModel(int x, int y, int z) {
         distanceType = new DNDDistance();
         this.terrains =  new ArrayList<>();
