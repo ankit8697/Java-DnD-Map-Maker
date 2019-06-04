@@ -1,3 +1,5 @@
+import org.w3c.dom.css.RGBColor;
+
 import java.util.*;
 public class Terrain {
     private ArrayList<Integer> moveCostArray;
@@ -6,6 +8,7 @@ public class Terrain {
     private boolean eventOnEnter;
     private boolean eventOnEndTurn;
     private String name;
+    private RGBColor color;
     private ArrayList<Cube> currentLocations;
 
     public Terrain(ArrayList<Integer> moveCostArray,
@@ -102,4 +105,11 @@ public class Terrain {
         }
     }
 
+    public RGBColor getColor() {
+        return color;
+    }
+
+    public void setColor(RGBColor color) {
+        this.color = color;
+    }
 }
