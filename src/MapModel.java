@@ -203,12 +203,13 @@ public class MapModel { // this is a comment
         }
     }
 
-    public ArrayList<RGBColor> getTerrainColorsInCube(Cube cube){
+    public List<RGBColor> getTerrainColorsInCube(Cube cube){
         List<Terrain> terrainInCube = cube.getListOfTerrain();
         List<RGBColor> terrainColors = new ArrayList<RGBColor>();
         for(Terrain terrain: terrainInCube){
             RGBColor color = terrain.getColor();
             terrainColors.add(color);
         }
+        return terrainColors;
     }
 }

@@ -1,6 +1,6 @@
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -9,6 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
@@ -18,6 +19,7 @@ public class Main extends Application {
 //        Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
         primaryStage.setTitle("D&D Combat Map");
         BorderPane window = new BorderPane();
+
         Menu fileMenu = new Menu("File");
         Menu addMenu = new Menu("Add");
         Menu helpMenu = new Menu("Help");
@@ -27,26 +29,40 @@ public class Main extends Application {
         MenuItem addMenuTerrain = new MenuItem("Terrain");
 
         addMenu.getItems().addAll(addMenuPlayer, addMenuMonster, addMenuTerrain);
-
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().addAll(fileMenu, addMenu, helpMenu);
 
-        VBox options = new VBox();
-        Label terrain = new Label("Terrain");
-        Label highlight = new Label("Highlight");
-        options.getChildren().addAll(terrain, highlight);
+        VBox options = new VBox(10);
+        options.setPrefWidth(100);
+        options.setAlignment(Pos.BASELINE_CENTER);
 
+        Label terrain = new Label("Terrain");
+        String terrainOptions[] = {"Forest", "Ocean"};
+        ChoiceBox terrains = new ChoiceBox(FXCollections.observableArrayList(terrainOptions));
+        Label highlight = new Label("Highlight");
+        String highlightOptions[] = {"Circle", "Square", "Cylinder", "Sphere"};
+        ChoiceBox highlights = new ChoiceBox(FXCollections.observableArrayList(highlightOptions));
+        Label displayHeight = new Label("Shift Display Height");
+        TextField displayHeightField = new TextField();
+        options.getChildren().addAll(
+                terrain,
+                terrains,
+                highlight,
+                highlights,
+                displayHeight,
+                displayHeightField
+        );
 
         VBox key = new VBox();
         Label keyLabel = new Label("Key");
         key.getChildren().addAll(keyLabel);
 
         GridPane grid = new GridPane();
-
         grid.setGridLinesVisible(true);
         for (int x = 0; x<20; x++) {
             for (int y = 0; y < 20; y++) {
                 Button btn = new Button();
+//                btn.setStyle("-fx-background-color: yellow");
                 grid.setHgrow(btn, Priority.ALWAYS);
                 grid.setVgrow(btn, Priority.ALWAYS);
                 btn.setMaxWidth(Double.MAX_VALUE);
