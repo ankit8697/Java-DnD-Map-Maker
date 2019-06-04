@@ -84,6 +84,7 @@ public class Terrain {
     }
 
     public void removeFromCurrentLocations(Cube cube) {
+        cube.removeFromListOfTerrain(this);
         this.currentLocations.remove(cube);
     }
 
