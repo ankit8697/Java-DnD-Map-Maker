@@ -1,3 +1,4 @@
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -21,6 +22,11 @@ public class Tile extends Button {
         this.display = (StackPane) display;
         this.cube = cube;
         this.map = map;
+        int[] coordinates = cube.getCoordinates();
+        List<Cube> column = map.getColumn(coordinates[0], coordinates[1]);
+        for (Cube cubeInColumn : column) {
+            cubeInColumn.setTile(this);
+        }
         this.update();
     }
 
@@ -33,7 +39,17 @@ public class Tile extends Button {
     }
 
     public void setCube(Cube cube) {
+        int[] coordinates = cube.getCoordinates();
+        List<Cube> column = map.getColumn(coordinates[0], coordinates[1]);
+        for (Cube cubeInColumn : column) {
+            cubeInColumn.setTile(null);
+        }
         this.cube = cube;
+        coordinates = cube.getCoordinates();
+        column = map.getColumn(coordinates[0], coordinates[1]);
+        for (Cube cubeInColumn : column) {
+            cubeInColumn.setTile(this);
+        }
     }
 
     public void update() {
@@ -64,11 +80,14 @@ public class Tile extends Button {
         VBox displayBox = new VBox();
         for (Creature creature : creatures) {
             String displayName = creature.getDisplayName();
-            int deltaZ = (creature.getCurrentLocation().getCoordinates()[2] - cube.getCoordinates()[2]);
+            int creatureLocation = creature.getCurrentLocation().getCoordinates()[2];
+            int cubeLocation = cube.getCoordinates()[2];
+            int deltaZ = (creatureLocation - cubeLocation);
             int deltaHeight = deltaZ * cube.getSideLength();
             String displayString = displayName + " : " + deltaHeight;
             displayBox.getChildren().add(new Text(displayString));
         }
+        displayBox.setAlignment(Pos.CENTER);
         display.getChildren().add(displayBox);
     }
 

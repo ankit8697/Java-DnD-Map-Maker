@@ -26,7 +26,6 @@ public class Creature {
                     String creatureType,
                     int[] attackDistances,
                     String name,
-                    Cube currentLocation,
                     String displayName) {
         this.isPlayer = isPlayer;
         this.hp = hp;
@@ -40,7 +39,7 @@ public class Creature {
         this.creatureType = creatureType;
         this.attackDistances = attackDistances;
         this.name = name;
-        this.currentLocation = currentLocation;
+        this.currentLocation = null;
         this.displayName = displayName;
     }
 
@@ -174,9 +173,11 @@ public class Creature {
         return currentLocation;
     }
 
-    public void setCurrentLocation(Cube currentLocation) {
-        this.currentLocation.removeFromListOfCreatures(this);
-        this.currentLocation = currentLocation;
+    public void setCurrentLocation(Cube newLocation) {
+        if(this.currentLocation != null) {
+            this.currentLocation.removeFromListOfCreatures(this);
+        }
+        this.currentLocation = newLocation;
         this.currentLocation.addToListOfCreatures(this);
     }
 

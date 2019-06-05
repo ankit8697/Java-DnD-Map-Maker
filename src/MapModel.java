@@ -1,12 +1,7 @@
-import org.w3c.dom.css.RGBColor;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
-import java.lang.Math;
 
-public class MapModel { // this is a comment
+public class MapModel {
     public static final int DEFAULT_SIDE_LENGTH = 5;
 
     private ArrayList<ArrayList<ArrayList<Cube>>> map;
@@ -28,12 +23,12 @@ public class MapModel { // this is a comment
             ArrayList<ArrayList<Cube>> row = new ArrayList<>();
             for(int yCoord = 0 ; yCoord < y ; yCoord++) {
                 ArrayList<Cube> item = new ArrayList<>();
-                item.add(new Cube(xCoord, yCoord, z));
+                item.add(new Cube(xCoord, yCoord, 0));
                 row.add(item);
             }
             plane.add(row);
         }
-        map = plane;
+        this.map = plane;
     }
 
     public MapModel(int x, int y, int z) {
@@ -48,23 +43,22 @@ public class MapModel { // this is a comment
             ArrayList<ArrayList<Cube>> row = new ArrayList<>();
             for(int yCoord = 0 ; yCoord < y ; yCoord++) {
                 ArrayList<Cube> item = new ArrayList<>();
-                item.add(new Cube(xCoord, yCoord, z));
+                item.add(makeCube(xCoord, yCoord, z));
                 row.add(item);
             }
             plane.add(row);
         }
-        map = plane;
+        this.map = plane;
     }
 
-    public void addTerrain(List<Cube> cubes, Terrain terrain) {
+    public void addTerrain(Terrain terrain, List<Cube> cubes) {
         for(Cube cube : cubes) {
             cube.addToListOfTerrain(terrain);
             terrain.addToCurrentLocations(cube);
         }
     }
 
-    public void addCreature(Cube cube, Creature creature) {
-        cube.addToListOfCreatures(creature);
+    public void addCreature(Creature creature, Cube cube) {
         creature.setCurrentLocation(cube);
     }
 
@@ -100,7 +94,7 @@ public class MapModel { // this is a comment
         if (z < maxHeight) {
             Cube output = column.get(z);
             if (output == null) {
-                output = new Cube(x, y, z);
+                output = makeCube(x, y, z);
                 column.set(z, output);
             }
             return output;
@@ -109,13 +103,24 @@ public class MapModel { // this is a comment
             for (int i = maxHeight; i < z; i++) {
                 column.add(null);
             }
-            Cube newCube = new Cube(x, y, z);
+            Cube newCube = makeCube(x, y, z);
             column.add(newCube);
             return newCube;
         }
     }
 
-    public ArrayList<Cube> getFullColumn(int x, int y) throws IndexOutOfBoundsException {
+    private Cube makeCube(int x, int y, int z) {
+        Cube cube = new Cube(x, y, z);
+        List<Cube> column = getColumn(x, y);
+        for (Cube testCube : column) {
+            if (testCube.getTile() != null) {
+                cube.setTile(testCube.getTile());
+            }
+        }
+        return cube;
+    }
+
+    public ArrayList<Cube> populateAndGetColumn(int x, int y) throws IndexOutOfBoundsException {
         if (x > dimensions[0] || y > dimensions[1] ||
                 x < 0 || y < 0) {
             throw new IndexOutOfBoundsException();
@@ -125,9 +130,17 @@ public class MapModel { // this is a comment
         ArrayList<Cube> column = map.get(x).get(y);
         int currentHeight = column.size();
         for (int i = currentHeight; i <= targetHeight; i++) {
-            column.add(new Cube(x, y, i));
+            column.add(makeCube(x, y, i));
         }
         return column;
+    }
+
+    public ArrayList<Cube> getColumn(int x, int y) throws IndexOutOfBoundsException {
+        if (x > dimensions[0] || y > dimensions[1] ||
+                x < 0 || y < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        return map.get(x).get(y);
     }
 
     public ArrayList<Cube> getCircle(int r, int[] coordinates) {
@@ -177,7 +190,7 @@ public class MapModel { // this is a comment
         ArrayList<Cube> baseCubes = getCircle(r, coordinates);
         ArrayList<Cube> cubes = new ArrayList<>();
         for (Cube cube : baseCubes) {
-            ArrayList<Cube> column = getFullColumn(cube.getCoordinates()[0], cube.getCoordinates()[1]);
+            ArrayList<Cube> column = populateAndGetColumn(cube.getCoordinates()[0], cube.getCoordinates()[1]);
             cubes.addAll(column);
         }
         return cubes;
@@ -203,13 +216,4 @@ public class MapModel { // this is a comment
         }
     }
 
-    public List<RGBColor> getTerrainColorsInCube(Cube cube){
-        List<Terrain> terrainInCube = cube.getListOfTerrain();
-        List<RGBColor> terrainColors = new ArrayList<RGBColor>();
-        for(Terrain terrain: terrainInCube){
-            RGBColor color = terrain.getColor();
-            terrainColors.add(color);
-        }
-        return terrainColors;
-    }
 }

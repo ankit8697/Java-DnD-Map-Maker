@@ -92,4 +92,8 @@ public class Cube {
     public void setTile(Tile tile) {
         this.tile = tile;
     }
+
+    public Tile getTile() {
+        return tile;
+    }
 }
