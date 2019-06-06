@@ -9,13 +9,15 @@ public class MapModel {
     private ArrayList<Creature> creatures;
     private int[] dimensions;
     DistanceStrategy distanceType;
+    View view;
 
 
-    public MapModel(ArrayList<Creature> creatures, int x, int y, int z) {
+    public MapModel(int x, int y, int z, ArrayList<Creature> creatures, View view) {
         distanceType = new DNDDistance();
         this.terrains =  new ArrayList<>();
         this.creatures =  creatures;
         this.map = new ArrayList<>();
+        this.view = view;
         int[] dimensionsHolder = {x,y,z};
         this.dimensions = dimensionsHolder;
         ArrayList<ArrayList<ArrayList<Cube>>> plane = new ArrayList<>();
@@ -56,6 +58,17 @@ public class MapModel {
             cube.addToListOfTerrain(terrain);
             terrain.addToCurrentLocations(cube);
         }
+        addTerrain(terrain);
+    }
+
+    public void addTerrain(Terrain terrain) {
+        terrains.add(terrain);
+        view.updateKey(terrains);
+    }
+
+    public void removeTerrain(Terrain terrain) {
+        terrains.remove(terrain);
+        view.updateKey(terrains);
     }
 
     public void addCreature(Creature creature, Cube cube) {
@@ -220,4 +233,15 @@ public class MapModel {
         }
     }
 
+    public ArrayList<Terrain> getTerrains() {
+        return terrains;
+    }
+
+    public ArrayList<Creature> getCreatures() {
+        return creatures;
+    }
+
+    public int[] getDimensions() {
+        return dimensions;
+    }
 }

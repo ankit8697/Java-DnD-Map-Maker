@@ -66,7 +66,7 @@ public class Tile extends Button {
         List<Terrain> terrains = cube.getListOfTerrain();
         int[] coordinates = cube.getCoordinates();
         List<Creature> creatures = map.getCreaturesInColumn(coordinates[0], coordinates[1]);
-        display.getChildren().removeAll();
+        display.getChildren().clear();
         this.updateTerrains(terrains);
         this.updateCreatures(creatures);
     }

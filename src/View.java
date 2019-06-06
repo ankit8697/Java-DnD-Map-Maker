@@ -1,20 +1,28 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
 public class View extends Application {
     Model model;
+    MenuBar menuBar;
+    VBox options;
+    VBox key;
+    GridPane grid;
 
     public View() {
-        this.model = new Model(20,20,21);
+        this.model = new Model(20,20,21, this);
     }
 
     @Override
@@ -31,12 +39,13 @@ public class View extends Application {
         MenuItem addMenuTerrain = new MenuItem("Terrain");
 
         addMenu.getItems().addAll(addMenuPlayer, addMenuMonster, addMenuTerrain);
-        MenuBar menuBar = new MenuBar();
+        menuBar = new MenuBar();
         menuBar.getMenus().addAll(fileMenu, addMenu, helpMenu);
 
-        VBox options = new VBox(10);
+        options = new VBox(10);
         options.setPrefWidth(100);
         options.setAlignment(Pos.BASELINE_CENTER);
+        options.setPadding(new Insets(0,5,0,5));
 
         Label terrain = new Label("Terrain");
         String terrainOptions[] = {"Forest", "Ocean"};
@@ -44,22 +53,36 @@ public class View extends Application {
         Label highlight = new Label("Highlight");
         String highlightOptions[] = {"Circle", "Square", "Cylinder", "Sphere"};
         ChoiceBox highlights = new ChoiceBox(FXCollections.observableArrayList(highlightOptions));
-        Label displayHeight = new Label("Shift Display Height");
+        Label displayHeight = new Label("Shift Height");
+        displayHeight.setWrapText(true);
         TextField displayHeightField = new TextField();
+        Label setHeight = new Label("Set Height");
+        TextField setHeightField = new TextField();
+        Label clickLabel = new Label("Click Actions");
+        String[] clicks = { "Move", "Highlight", "Select",  "Delete"};
+        ChoiceBox clickOptions = new ChoiceBox(FXCollections.observableArrayList(clicks));
+
         options.getChildren().addAll(
+                clickLabel,
+                clickOptions,
                 terrain,
                 terrains,
                 highlight,
                 highlights,
                 displayHeight,
-                displayHeightField
+                displayHeightField,
+                setHeight,
+                setHeightField
         );
 
-        VBox key = new VBox();
+        key = new VBox();
         Label keyLabel = new Label("Key");
-        key.getChildren().addAll(keyLabel);
+        key.setPadding(new Insets(0,5,0,5));
+        key.setSpacing(5);
+        List<Terrain> terrainsList = new ArrayList<>();
+        updateKey(terrainsList);
 
-        GridPane grid = new GridPane();
+        grid = new GridPane();
         grid.setGridLinesVisible(true);
         int yMax = 20;
         int xMax = 20;
@@ -86,8 +109,10 @@ public class View extends Application {
         ArrayList<Boolean> passable = new ArrayList<>();
         Color color = Color.valueOf("BLUE");
         Color anotherColor = Color.valueOf("RED");
-        Terrain testTerrain = new Terrain(movement, passable, false, false, false, "Blue", color);
-        Terrain anotherTestTerrain = new Terrain(movement, passable, false, false, false, "Red", anotherColor);
+        Terrain testTerrain = new Terrain(movement, passable, false, false,
+                false, "Blue", color);
+        Terrain anotherTestTerrain = new Terrain(movement, passable, false, false,
+                false, "Red", anotherColor);
         int[] attackDistances = {0, 0, 0};
         List<Cube> testCubes = new ArrayList<>();
         testCubes.add(model.getMapModel().getCube(3,3,0));
@@ -101,15 +126,23 @@ public class View extends Application {
         testCubes.add(model.getMapModel().getCube(5,4,0));
         testCubes.add(model.getMapModel().getCube(2,1,0));
         testCubes.add(model.getMapModel().getCube(5,1,0));
-        Creature testCreature = new Creature(false, 0, 0, 0, 0, 0, 0, 0, "Humanoid", attackDistances, "TestName", "T1");
-        Creature anotherTestCreature = new Creature(false, 0, 0, 0, 0, 0, 0, 0, "Humanoid", attackDistances, "TestName", "T2");
-        Creature yetAnotherTestCreature = new Creature(false, 0, 0, 0, 0, 0, 0, 0, "Humanoid", attackDistances, "TestName", "T3");
+        Creature testCreature = new Creature(false, 0, 0, 0, 0,
+                0, 0, 0, "Humanoid", attackDistances,
+                "TestName", "T1");
+        Creature anotherTestCreature = new Creature(false, 0, 0, 0, 0,
+                0, 0, 0, "Humanoid", attackDistances,
+                "TestName", "T2");
+        Creature yetAnotherTestCreature = new Creature(false, 0, 0, 0, 0,
+                0, 0, 0, "Humanoid", attackDistances,
+                "TestName", "T3");
         model.getMapModel().addCreature(testCreature, model.getMapModel().getCube(3,4,1));
         model.getMapModel().addCreature(anotherTestCreature, model.getMapModel().getCube(3,4,13));
         model.getMapModel().addCreature(yetAnotherTestCreature, model.getMapModel().getCube(3,4,20));
         model.getMapModel().addTerrain(testTerrain, testCubes);
         model.getMapModel().addTerrain(anotherTestTerrain, testCubes);
 
+        terrainsList = model.getMapModel().getTerrains();
+        updateKey(terrainsList);
 
         window.setTop(menuBar);
         window.setLeft(options);
@@ -117,6 +150,25 @@ public class View extends Application {
         window.setRight(key);
         primaryStage.setScene(new Scene(window, 1000, 900));
         primaryStage.show();
+
+    }
+
+    public void updateKey(List<Terrain> terrainsList) {
+        Label keyLabel = new Label("Key");
+        keyLabel.setStyle("-fx-underline: true");
+        keyLabel.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
+        keyLabel.setAlignment(Pos.BASELINE_CENTER);
+        key.getChildren().clear();
+        key.getChildren().add(keyLabel);
+        for (Terrain terrain : terrainsList) {
+            HBox terrainBox = new HBox();
+            Rectangle coloredSquare = new Rectangle(15,15);
+            String displayString = " : " + terrain.getName();
+            Text terrainName = new Text(displayString);
+            coloredSquare.setFill(terrain.getColor());
+            terrainBox.getChildren().addAll(coloredSquare, terrainName);
+            key.getChildren().add(terrainBox);
+        }
     }
 
     public static void main(String[] args) {
