@@ -1,5 +1,4 @@
 import java.util.*;
-import java.lang.Math;
 public class Model {
     private ArrayList<Creature> creatures;
     private MapModel mapModel;

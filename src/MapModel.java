@@ -76,8 +76,10 @@ public class MapModel {
         ArrayList<Cube> column = map.get(x).get(y);
         ArrayList<Creature> creatures = new ArrayList<>();
         for (Cube cube : column) {
-            for (Creature creature : cube.getListOfCreatures()) {
-                creatures.add(creature);
+            if (cube != null) {
+                for (Creature creature : cube.getListOfCreatures()) {
+                    creatures.add(creature);
+                }
             }
         }
         return creatures;
@@ -113,8 +115,10 @@ public class MapModel {
         Cube cube = new Cube(x, y, z);
         List<Cube> column = getColumn(x, y);
         for (Cube testCube : column) {
-            if (testCube.getTile() != null) {
-                cube.setTile(testCube.getTile());
+            if (testCube != null) {
+                if (testCube.getTile() != null) {
+                    cube.setTile(testCube.getTile());
+                }
             }
         }
         return cube;

@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class View extends Application {
     Model model;
 
     public View() {
-        this.model = new Model(20,20,20);
+        this.model = new Model(20,20,21);
     }
 
     @Override
@@ -60,17 +61,25 @@ public class View extends Application {
 
         GridPane grid = new GridPane();
         grid.setGridLinesVisible(true);
-        for (int x = 0; x < 20; x++) {
-            for (int y = 0; y < 20; y++) {
+        int yMax = 20;
+        int xMax = 20;
+        for (int x = 0; x < xMax; x++) {
+            for (int y = 0; y < yMax; y++) {
                 Tile tile = new Tile(model.getMapModel().getCube(x,y,0), model.getMapModel());
 //                tile.setStyle("-fx-background-color: yellow");
                 grid.setHgrow(tile, Priority.ALWAYS);
                 grid.setVgrow(tile, Priority.ALWAYS);
-                tile.setMaxWidth(Double.MAX_VALUE);
-                tile.setMaxHeight(Double.MAX_VALUE);
+                tile.setAlignment(Pos.CENTER);
                 grid.add(tile,x,y);
-
+                if(x == 0) {
+                    RowConstraints row = new RowConstraints();
+                    row.setPercentHeight(100/yMax);
+                    grid.getRowConstraints().add(row);
+                }
             }
+            ColumnConstraints column = new ColumnConstraints();
+            column.setPercentWidth(100/xMax);
+            grid.getColumnConstraints().add(column);
         }
 
         ArrayList<Integer> movement = new ArrayList<>();
@@ -92,8 +101,12 @@ public class View extends Application {
         testCubes.add(model.getMapModel().getCube(5,4,0));
         testCubes.add(model.getMapModel().getCube(2,1,0));
         testCubes.add(model.getMapModel().getCube(5,1,0));
-        Creature testCreature = new Creature(false, 0, 0, 0, 0, 0, 0, 0, "Humanoid", attackDistances, "TestName", "Test");
+        Creature testCreature = new Creature(false, 0, 0, 0, 0, 0, 0, 0, "Humanoid", attackDistances, "TestName", "T1");
+        Creature anotherTestCreature = new Creature(false, 0, 0, 0, 0, 0, 0, 0, "Humanoid", attackDistances, "TestName", "T2");
+        Creature yetAnotherTestCreature = new Creature(false, 0, 0, 0, 0, 0, 0, 0, "Humanoid", attackDistances, "TestName", "T3");
         model.getMapModel().addCreature(testCreature, model.getMapModel().getCube(3,4,1));
+        model.getMapModel().addCreature(anotherTestCreature, model.getMapModel().getCube(3,4,13));
+        model.getMapModel().addCreature(yetAnotherTestCreature, model.getMapModel().getCube(3,4,20));
         model.getMapModel().addTerrain(testTerrain, testCubes);
         model.getMapModel().addTerrain(anotherTestTerrain, testCubes);
 
