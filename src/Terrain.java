@@ -1,6 +1,6 @@
-import org.w3c.dom.css.RGBColor;
-
+import javafx.scene.paint.Color;
 import java.util.*;
+
 public class Terrain {
     private ArrayList<Integer> moveCostArray;
     private ArrayList<Boolean> isPassableArray;
@@ -8,7 +8,7 @@ public class Terrain {
     private boolean eventOnEnter;
     private boolean eventOnEndTurn;
     private String name;
-    private RGBColor color;
+    private Color color;
     private ArrayList<Cube> currentLocations;
 
     public Terrain(ArrayList<Integer> moveCostArray,
@@ -17,14 +17,15 @@ public class Terrain {
                    boolean eventOnEnter,
                    boolean eventOnEndTurn,
                    String name,
-                   ArrayList<Cube> currentLocations) {
+                   Color color) {
         this.moveCostArray = moveCostArray;
         this.isPassableArray = isPassableArray;
         this.eventOnStartTurn = eventOnStartTurn;
         this.eventOnEnter = eventOnEnter;
         this.eventOnEndTurn = eventOnEndTurn;
         this.name = name;
-        this.currentLocations = currentLocations;
+        this.currentLocations = new ArrayList<>();
+        this.color = color;
     }
 
     public ArrayList<Boolean> getIsPassableArray() {
@@ -105,11 +106,11 @@ public class Terrain {
         }
     }
 
-    public RGBColor getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(RGBColor color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 }

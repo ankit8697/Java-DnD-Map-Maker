@@ -9,6 +9,7 @@ public class Cube {
     private List<Creature> listOfCreatures; // List of all the creatures currently inside of the cube
     private List<Terrain> listOfTerrain; // any current terrain effects within the cube
     private static final int DEFAULT_SIDE_LENGTH = 5;
+    private Tile tile = null;
 
     public Cube(int x, int y, int z) {
         int[] coordinatesHolder = {x, y, z};
@@ -24,15 +25,18 @@ public class Cube {
 
     public void setListOfCreatures(List<Creature> listOfCreatures) {
         this.listOfCreatures = listOfCreatures;
+        tile.update();
     }
 
     public List<Creature> addToListOfCreatures(Creature creature) {
         this.listOfCreatures.add(creature);
+        tile.update();
         return this.listOfCreatures;
     }
 
     public List<Creature> removeFromListOfCreatures(Creature creature) {
         this.listOfCreatures.remove(creature);
+        tile.update();
         return this.listOfCreatures;
     }
 
@@ -41,11 +45,13 @@ public class Cube {
     }
 
     public void setListOfTerrain(List<Terrain> listOfTerrain) {
+        tile.update();
         this.listOfTerrain = listOfTerrain;
     }
 
     public List<Terrain> addToListOfTerrain(Terrain terrain) {
         this.listOfTerrain.add(terrain);
+        tile.update();
         return this.listOfTerrain;
     }
 
@@ -56,6 +62,10 @@ public class Cube {
 
     public int[] getCoordinates() {
         return coordinates;
+    }
+
+    public int getSideLength() {
+        return sideLength;
     }
 
     public double getEuclideanDistanceToLocation(int x, int y, int z) {
@@ -77,5 +87,13 @@ public class Cube {
         int diagonalsPrice = (int) (this.sideLength * Math.floor(secondLargestDistance / (2 * this.sideLength)));
         int distance = maxDistance + diagonalsPrice;
         return (double) distance;
+    }
+
+    public void setTile(Tile tile) {
+        this.tile = tile;
+    }
+
+    public Tile getTile() {
+        return tile;
     }
 }

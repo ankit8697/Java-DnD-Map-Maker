@@ -13,6 +13,7 @@ public class Creature {
     private int[] attackDistances;
     private String name;
     private Cube currentLocation;
+    private String displayName;
 
     public Creature(boolean isPlayer,
                     int hp,
@@ -25,7 +26,7 @@ public class Creature {
                     String creatureType,
                     int[] attackDistances,
                     String name,
-                    Cube currentLocation) {
+                    String displayName) {
         this.isPlayer = isPlayer;
         this.hp = hp;
         this.maxHP = hp;
@@ -38,7 +39,8 @@ public class Creature {
         this.creatureType = creatureType;
         this.attackDistances = attackDistances;
         this.name = name;
-        this.currentLocation = currentLocation;
+        this.currentLocation = null;
+        this.displayName = displayName;
     }
 
     public int[] getDefaultSpeeds() {
@@ -171,13 +173,23 @@ public class Creature {
         return currentLocation;
     }
 
-    public void setCurrentLocation(Cube currentLocation) {
-        this.currentLocation.removeFromListOfCreatures(this);
-        this.currentLocation = currentLocation;
+    public void setCurrentLocation(Cube newLocation) {
+        if(this.currentLocation != null) {
+            this.currentLocation.removeFromListOfCreatures(this);
+        }
+        this.currentLocation = newLocation;
         this.currentLocation.addToListOfCreatures(this);
     }
 
     public void delete() {
         this.currentLocation.removeFromListOfCreatures(this);
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }
