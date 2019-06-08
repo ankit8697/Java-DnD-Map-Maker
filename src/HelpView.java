@@ -23,7 +23,7 @@ public class HelpView {
 
         Text helpTitle = new Text("Help");
         helpTitle.setTextAlignment(TextAlignment.CENTER);
-        helpTitle.setFont(Font.font("Helvetica", FontWeight.BOLD));
+        helpTitle.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
 
     }
 }

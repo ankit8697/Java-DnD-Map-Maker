@@ -63,12 +63,12 @@ public class MapModel {
 
     public void addTerrain(Terrain terrain) {
         terrains.add(terrain);
-        view.updateKey(terrains);
+        view.getMapView().updateKey(terrains);
     }
 
     public void removeTerrain(Terrain terrain) {
         terrains.remove(terrain);
-        view.updateKey(terrains);
+        view.getMapView().updateKey(terrains);
     }
 
     public void addCreature(Creature creature, Cube cube) {
