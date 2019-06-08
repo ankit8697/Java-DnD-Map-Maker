@@ -15,8 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TerrainCreatorView {
+    Scene scene;
 
     public void createWindow() {
+        Stage stage = new Stage();
+        stage.setTitle("Create Terrain");
+        VBox terrain = new VBox();
+        terrain.setAlignment(Pos.BASELINE_CENTER);
+        terrain.setSpacing(15);
+        terrain.setPadding(new Insets(10,10,10,10));
 
+
+
+        scene = new Scene(terrain, 400, 600);
+        stage.setScene(scene);
+        stage.show();
     }
 }
