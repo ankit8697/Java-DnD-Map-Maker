@@ -28,19 +28,19 @@ public class MapView {
         Menu addMenu = new Menu("Add");
         Menu helpMenu = new Menu("Help");
 
-        MenuItem addMenuPlayer = new MenuItem("Player");
-        addMenuPlayer.setOnAction(e -> {
-            CreatureCreatorView creatureView = new CreatureCreatorView(true);
-            creatureView.createWindow();
-        });
-        MenuItem addMenuMonster = new MenuItem("Monster");
-        addMenuMonster.setOnAction(e -> {
-            CreatureCreatorView creatureView = new CreatureCreatorView(false);
+        MenuItem addMenuCreature = new MenuItem("Creature");
+        addMenuCreature.setOnAction(e -> {
+            CreatureCreatorView creatureView = new CreatureCreatorView(controller);
+            /*
+              I made a new function to create the window as if we
+              set it up like MapView then it creates an instance of itself
+              immediately, which is not what we want.
+             */
             creatureView.createWindow();
         });
         MenuItem addMenuTerrain = new MenuItem("Terrain");
 
-        addMenu.getItems().addAll(addMenuPlayer, addMenuMonster, addMenuTerrain);
+        addMenu.getItems().addAll(addMenuCreature, addMenuTerrain);
         menuBar = new MenuBar();
         menuBar.getMenus().addAll(addMenu, helpMenu);
 
