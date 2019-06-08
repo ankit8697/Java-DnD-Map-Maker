@@ -86,8 +86,8 @@ public class Tile extends Button {
         for (int i = 0; i < numTerrains; i++) {
             double scale = Math.pow(scaleFactor, i) * 1;
             Rectangle shape = new Rectangle();
-            shape.widthProperty().bind(this.widthProperty().subtract(3).multiply(scale));
-            shape.heightProperty().bind(this.heightProperty().subtract(3).multiply(scale));
+            shape.widthProperty().bind(this.widthProperty().subtract(2).multiply(scale));
+            shape.heightProperty().bind(this.heightProperty().subtract(2).multiply(scale));
             shape.setFill(terrains.get(i).getColor());
             displayPane.getChildren().add(shape);
         }

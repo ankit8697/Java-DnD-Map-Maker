@@ -26,10 +26,13 @@ public class View extends Application {
         ArrayList<Boolean> passable = new ArrayList<>();
         Color color = Color.valueOf("BLUE");
         Color anotherColor = Color.valueOf("RED");
+        Color green = Color.GREEN;
         Terrain testTerrain = new Terrain(movement, passable, false, false,
                 false, "Blue", color);
         Terrain anotherTestTerrain = new Terrain(movement, passable, false, false,
                 false, "Red", anotherColor);
+        Terrain grass = new Terrain(movement, passable, false, false,
+                false, "Grass", green);
         int[] attackDistances = {0, 0, 0};
         List<Cube> testCubes = new ArrayList<>();
         testCubes.add(model.getMapModel().getCube(3,3,0));
@@ -57,6 +60,9 @@ public class View extends Application {
 //        model.getMapModel().addCreature(yetAnotherTestCreature, model.getMapModel().getCube(3,4,20));
         model.getMapModel().addTerrain(testTerrain, testCubes);
         model.getMapModel().addTerrain(anotherTestTerrain, testCubes);
+        testCubes.remove(1);
+        model.getMapModel().addTerrain(grass, testCubes);
+
 
         ArrayList<Terrain> terrainsList = model.getMapModel().getTerrains();
         mapView.updateKey(terrainsList);

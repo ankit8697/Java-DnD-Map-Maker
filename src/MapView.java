@@ -47,7 +47,7 @@ public class MapView {
         optionsHeader.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
         optionsHeader.setAlignment(Pos.BASELINE_CENTER);
         Label terrain = new Label("Terrain");
-        String terrainOptions[] = {"Forest", "Ocean"};
+        String terrainOptions[] = {};
         ChoiceBox terrainsDropdown = new ChoiceBox(FXCollections.observableArrayList(terrainOptions));
         terrainsDropdown.setId("terrainsDropdown");
         Button applyToSelected = new Button("Apply");
@@ -77,6 +77,7 @@ public class MapView {
         String[] clicks = { "Move", "Highlight", "Select", "Unselect", "Delete"};
         ChoiceBox clickOptionsDropdown = new ChoiceBox(FXCollections.observableArrayList(clicks));
         clickOptionsDropdown.setId("clickOptionsDropdown");
+        clickOptionsDropdown.getSelectionModel().select(1);
         Text selectedCubes = new Text("Selected: ");
         Text numberOfSelectedCubes = new Text();
         HBox selectedCubeCounter = new HBox();
