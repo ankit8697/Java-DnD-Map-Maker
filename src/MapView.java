@@ -1,4 +1,5 @@
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -54,9 +55,14 @@ public class MapView {
         optionsHeader.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
         optionsHeader.setAlignment(Pos.BASELINE_CENTER);
         Label terrain = new Label("Terrain");
-        String terrainOptions[] = {};
-        ChoiceBox terrainsDropdown = new ChoiceBox(FXCollections.observableArrayList(terrainOptions));
+        ArrayList<Terrain> terrains = model.getMapModel().getTerrains();
+//        TODO Fix dropdowns to get names of Creatures
+        ChoiceBox terrainsDropdown = new ChoiceBox(FXCollections.observableArrayList(terrains));
         terrainsDropdown.setId("terrainsDropdown");
+        Label creature = new Label("Creature");
+        ArrayList<Creature> creatures = model.getMapModel().getCreatures();
+        ChoiceBox creaturesDropDown = new ChoiceBox(FXCollections.observableArrayList(creatures));
+        creaturesDropDown.setId("creaturesDropdown");
         Button applyToSelected = new Button("Apply");
 
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
@@ -99,6 +105,8 @@ public class MapView {
                 clickOptionsDropdown,
                 terrain,
                 terrainsDropdown,
+                creature,
+                creaturesDropDown,
                 applyToSelected,
                 separator1,
                 selectShapeLabel,

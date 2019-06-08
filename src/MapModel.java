@@ -75,6 +75,10 @@ public class MapModel {
         creature.setCurrentLocation(cube);
     }
 
+    public void addCreatureToList(Creature creature) {
+        creatures.add(creature);
+    }
+
     public void deleteTerrain(Terrain terrain) {
         terrain.delete();
         terrains.remove(terrain);

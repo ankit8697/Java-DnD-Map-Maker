@@ -92,6 +92,25 @@ public class Controller {
         }
     }
 
+    public void addCreature(boolean isPlayer,
+                            int hp,
+                            int initiativeBonus,
+                            int walkSpeed,
+                            int swimSpeed,
+                            int flySpeed,
+                            int burrowSpeed,
+                            int climbSpeed,
+                            String creatureType,
+                            int[] attackDistances,
+                            String name,
+                            String displayName) {
+        Creature creature = new Creature(isPlayer, hp, initiativeBonus, walkSpeed,
+                                swimSpeed, flySpeed, burrowSpeed,
+                                climbSpeed, creatureType, attackDistances,
+                                name, displayName);
+        model.getMapModel().addCreatureToList(creature);
+    }
+
     public Scene getScene() {
         return scene;
     }
