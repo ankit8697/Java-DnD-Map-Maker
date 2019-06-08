@@ -46,10 +46,11 @@ public class MapView {
         String terrainOptions[] = {"Forest", "Ocean"};
         ChoiceBox terrainsDropdown = new ChoiceBox(FXCollections.observableArrayList(terrainOptions));
         terrainsDropdown.setId("terrainsDropdown");
-        Label highlight = new Label("Highlight");
-        String highlightOptions[] = {"Circle", "Square", "Cylinder", "Sphere"};
-        ChoiceBox highlightsDropdown = new ChoiceBox(FXCollections.observableArrayList(highlightOptions));
-        highlightsDropdown.setId("highlightsDropdown");
+        Label selectShapeLabel = new Label("Shape Selection");
+        String shapeOptions[] = {"Tile", "Circle", "Cylinder", "Sphere"};
+        ChoiceBox shapeDropdown = new ChoiceBox(FXCollections.observableArrayList(shapeOptions));
+        shapeDropdown.setId("shapeDropdown");
+        shapeDropdown.getSelectionModel().selectFirst();
         Label displayHeight = new Label("Shift Height");
         displayHeight.setWrapText(true);
         TextField displayHeightField = new TextField();
@@ -65,8 +66,8 @@ public class MapView {
                 clickOptionsDropdown,
                 terrain,
                 terrainsDropdown,
-                highlight,
-                highlightsDropdown,
+                selectShapeLabel,
+                shapeDropdown,
                 displayHeight,
                 displayHeightField,
                 setHeight,

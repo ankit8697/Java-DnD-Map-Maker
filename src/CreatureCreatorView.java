@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreatureCreatorView {
-    //@Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Create Creature");
+
+    public CreatureCreatorView(View view) {
+//        primaryStage.setTitle("Create Creature");
         BorderPane window = new BorderPane();
     }
 }
