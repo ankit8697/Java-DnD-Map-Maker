@@ -15,4 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HelpView {
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Help");
+    }
 }

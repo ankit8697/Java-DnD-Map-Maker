@@ -15,4 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreatureCreaterView {
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Create Creature");
+    }
 }

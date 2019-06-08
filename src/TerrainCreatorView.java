@@ -15,4 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TerrainCreatorView {
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Create Terrain");
+    }
 }
