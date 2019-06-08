@@ -25,7 +25,6 @@ public class MapView {
         this.controller = controller;
         window = new BorderPane();
 
-        Menu fileMenu = new Menu("File");
         Menu addMenu = new Menu("Add");
         Menu helpMenu = new Menu("Help");
 
@@ -35,17 +34,23 @@ public class MapView {
 
         addMenu.getItems().addAll(addMenuPlayer, addMenuMonster, addMenuTerrain);
         menuBar = new MenuBar();
-        menuBar.getMenus().addAll(fileMenu, addMenu, helpMenu);
+        menuBar.getMenus().addAll(addMenu, helpMenu);
 
         options = new VBox(10);
         options.setPrefWidth(100);
         options.setAlignment(Pos.BASELINE_CENTER);
-        options.setPadding(new Insets(0,5,0,5));
+        options.setPadding(new Insets(0,10,0,5));
 
+        Label optionsHeader = new Label("Options");
+        optionsHeader.setStyle("-fx-underline: true");
+        optionsHeader.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
+        optionsHeader.setAlignment(Pos.BASELINE_CENTER);
         Label terrain = new Label("Terrain");
         String terrainOptions[] = {"Forest", "Ocean"};
         ChoiceBox terrainsDropdown = new ChoiceBox(FXCollections.observableArrayList(terrainOptions));
         terrainsDropdown.setId("terrainsDropdown");
+        Button applyToSelected = new Button("Apply");
+        applyToSelected.setId("applyToSelected");
         Label selectShapeLabel = new Label("Shape Selection");
         String shapeOptions[] = {"Tile", "Circle", "Cylinder", "Sphere"};
         ChoiceBox shapeDropdown = new ChoiceBox(FXCollections.observableArrayList(shapeOptions));
@@ -58,20 +63,30 @@ public class MapView {
         Label setHeight = new Label("Set Height");
         TextField setHeightField = new TextField();
         Label clickLabel = new Label("Click Actions");
-        String[] clicks = { "Move", "Highlight", "Select",  "Delete"};
+        String[] clicks = { "Move", "Highlight", "Select", "Unselect", "Delete"};
         ChoiceBox clickOptionsDropdown = new ChoiceBox(FXCollections.observableArrayList(clicks));
         clickOptionsDropdown.setId("clickOptionsDropdown");
+        Text selectedCubes = new Text("Selected: ");
+        Text numberOfSelectedCubes = new Text();
+        HBox selectedCubeCounter = new HBox();
+        selectedCubeCounter.getChildren().addAll(selectedCubes, numberOfSelectedCubes);
+        Button clearAll = new Button("Clear All");
+        clearAll.setId("clearAll");
         options.getChildren().addAll(
+                optionsHeader,
                 clickLabel,
                 clickOptionsDropdown,
                 terrain,
                 terrainsDropdown,
+                applyToSelected,
                 selectShapeLabel,
                 shapeDropdown,
+                clearAll,
                 displayHeight,
                 displayHeightField,
                 setHeight,
-                setHeightField
+                setHeightField,
+                selectedCubeCounter
         );
 
         key = new VBox();

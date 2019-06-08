@@ -12,7 +12,6 @@ public class Controller {
     }
 
     public void onTileClick(Tile tile) {
-
         tile.toggleHighlight();
     }
 }
