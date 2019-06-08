@@ -18,10 +18,12 @@ public class View extends Application {
     Model model;
     Scene scene;
     MapView mapView;
+    Controller controller;
 
     public View() {
         this.model = new Model(20,20,21, this);
-        mapView = new MapView(model);
+        controller = new Controller(this);
+        mapView = new MapView(model, controller);
     }
 
     @Override
@@ -66,6 +68,8 @@ public class View extends Application {
 
         ArrayList<Terrain> terrainsList = model.getMapModel().getTerrains();
         mapView.updateKey(terrainsList);
+        testCubes.get(0).getTile().setHighlighted(true);
+        model.getMapModel().getCube(9,4,10).getTile().setHighlighted(true);
 
         scene = new Scene(mapView.getWindow(), 1000, 900);
         primaryStage.setScene(scene);

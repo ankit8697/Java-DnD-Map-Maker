@@ -18,9 +18,11 @@ public class MapView {
     VBox key;
     GridPane grid;
     BorderPane window;
+    Controller controller;
 
-    public MapView(Model model) {
+    public MapView(Model model, Controller controller) {
         this.model = model;
+        this.controller = controller;
         window = new BorderPane();
 
         Menu fileMenu = new Menu("File");
@@ -95,6 +97,8 @@ public class MapView {
                     row.setPercentHeight(100/yMax);
                     grid.getRowConstraints().add(row);
                 }
+
+                tile.setOnAction(e -> controller.onTileClick(tile));
             }
             ColumnConstraints column = new ColumnConstraints();
             column.setPercentWidth(100/xMax);

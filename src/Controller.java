@@ -6,10 +6,12 @@ public class Controller {
     Model model;
     Scene scene;
 
-    public Controller() {
-        this.view = new View();
-        this.model = this.view.getModel();
+    public Controller(View view) {
+        this.view = view;
+        this.model = view.getModel();
     }
 
-
+    public void onTileClick(Tile tile) {
+        tile.toggleHighlight();
+    }
 }

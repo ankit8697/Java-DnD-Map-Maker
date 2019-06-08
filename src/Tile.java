@@ -21,12 +21,14 @@ public class Tile extends Button {
     private Cube cube;
     private StackPane display;
     private MapModel map;
+    private boolean isHighlighted;
 
     private Tile(Cube cube, Node display, MapModel map) {
         super("", display);
         this.display = (StackPane) display;
         this.cube = cube;
         this.map = map;
+        isHighlighted = false;
         this.setMinWidth(30);
         this.setMinHeight(30);
         this.setMaxHeight(Double.MAX_VALUE);
@@ -69,6 +71,9 @@ public class Tile extends Button {
         display.getChildren().clear();
         this.updateTerrains(terrains);
         this.updateCreatures(creatures);
+        if (isHighlighted) {
+            this.highlight();
+        }
     }
 
     private void updateTerrains(List<Terrain> terrains) {
@@ -104,5 +109,43 @@ public class Tile extends Button {
         display.getChildren().add(displayBox);
     }
 
+    private void highlight() {
+        Rectangle highlightBox = new Rectangle();
+        highlightBox.setFill(Color.valueOf("HOTPINK"));
+        highlightBox.setOpacity(0.5);
+        highlightBox.widthProperty().bind(this.widthProperty().subtract(3));
+        highlightBox.heightProperty().bind(this.heightProperty().subtract(3));
+        display.getChildren().add(highlightBox);
+        isHighlighted = true;
+    }
 
+    private void unhighlight() {
+        if (isHighlighted) {
+            display.getChildren().remove(display.getChildren().size() - 1);
+        }
+        isHighlighted = false;
+    }
+
+    public boolean isHighlighted() {
+        return isHighlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
+        if (highlighted) {
+            this.highlight();
+        }
+        else {
+            this.unhighlight();
+        }
+    }
+
+    public void toggleHighlight() {
+        if (isHighlighted) {
+            this.unhighlight();
+        }
+        else {
+            this.highlight();
+        }
+    }
 }
