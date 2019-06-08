@@ -1,15 +1,7 @@
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +60,8 @@ public class View extends Application {
 
         ArrayList<Terrain> terrainsList = model.getMapModel().getTerrains();
         mapView.updateKey(terrainsList);
-        testCubes.get(0).getTile().setHighlighted(true);
-        model.getMapModel().getCube(9,4,10).getTile().setHighlighted(true);
+        testCubes.get(0).getTile().setHighlighted(true, true);
+        model.getMapModel().getCube(9,4,10).getTile().setHighlighted(false, true);
 
         scene = new Scene(mapView.getWindow(), 1000, 900);
         primaryStage.setScene(scene);

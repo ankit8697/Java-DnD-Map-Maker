@@ -1,14 +1,10 @@
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -21,14 +17,18 @@ public class Tile extends Button {
     private Cube cube;
     private StackPane display;
     private MapModel map;
-    private boolean isHighlighted;
+    private boolean isStrongHighlighted;
+    private boolean isWeakHighlighted;
+    private static final double STRONG_HIGHLIGHT_STRENGTH = 0.5;
+    private static final double WEAK_HIGHLIGHT_STRENGTH = 0.25;
+
 
     private Tile(Cube cube, Node display, MapModel map) {
         super("", display);
         this.display = (StackPane) display;
         this.cube = cube;
         this.map = map;
-        isHighlighted = false;
+        isStrongHighlighted = false;
         this.setMinWidth(30);
         this.setMinHeight(30);
         this.setMaxHeight(Double.MAX_VALUE);
@@ -71,8 +71,11 @@ public class Tile extends Button {
         display.getChildren().clear();
         this.updateTerrains(terrains);
         this.updateCreatures(creatures);
-        if (isHighlighted) {
-            this.highlight();
+        if (isStrongHighlighted) {
+            this.highlight(true);
+        }
+        if (isWeakHighlighted) {
+            this.highlight(false);
         }
     }
 
@@ -109,43 +112,81 @@ public class Tile extends Button {
         display.getChildren().add(displayBox);
     }
 
-    private void highlight() {
-        Rectangle highlightBox = new Rectangle();
-        highlightBox.setFill(Color.valueOf("HOTPINK"));
-        highlightBox.setOpacity(0.5);
-        highlightBox.widthProperty().bind(this.widthProperty().subtract(3));
-        highlightBox.heightProperty().bind(this.heightProperty().subtract(3));
-        display.getChildren().add(highlightBox);
-        isHighlighted = true;
+    private void highlight(boolean strong) {
+        if (!(isWeakHighlighted || isStrongHighlighted)) {
+            double opacity;
+            if (strong) {
+                opacity = STRONG_HIGHLIGHT_STRENGTH;
+            } else {
+                opacity = WEAK_HIGHLIGHT_STRENGTH;
+            }
+            Rectangle highlightBox = new Rectangle();
+            highlightBox.setFill(Color.valueOf("HOTPINK"));
+            highlightBox.setOpacity(opacity);
+            highlightBox.widthProperty().bind(this.widthProperty().subtract(2));
+            highlightBox.heightProperty().bind(this.heightProperty().subtract(2));
+            display.getChildren().add(highlightBox);
+        } else if (isWeakHighlighted && strong) {
+            display.getChildren().get(display.getChildren().size() - 1).setOpacity(STRONG_HIGHLIGHT_STRENGTH);
+        }
+        if (strong) {
+            isStrongHighlighted = true;
+        } else {
+            isWeakHighlighted = true;
+        }
     }
 
     private void unhighlight() {
-        if (isHighlighted) {
+        if (isStrongHighlighted || isWeakHighlighted) {
             display.getChildren().remove(display.getChildren().size() - 1);
         }
-        isHighlighted = false;
+        isStrongHighlighted = false;
+        isWeakHighlighted = false;
     }
 
-    public boolean isHighlighted() {
-        return isHighlighted;
+    private void removeStrongHighlight() {
+        if (isWeakHighlighted) {
+            display.getChildren().get(display.getChildren().size() - 1).setOpacity(WEAK_HIGHLIGHT_STRENGTH);
+        } else {
+            this.unhighlight();
+        }
+        isStrongHighlighted = false;
     }
 
-    public void setHighlighted(boolean highlighted) {
-        isHighlighted = highlighted;
+    private void removeWeakHighlight() {
+        if (!isStrongHighlighted) {
+            this.unhighlight();
+        }
+        isWeakHighlighted = false;
+    }
+
+    public boolean isStrongHighlighted() {
+        return isStrongHighlighted;
+    }
+
+    public void setHighlighted(boolean strong, boolean highlighted) {
         if (highlighted) {
-            this.highlight();
+            this.highlight(strong);
         }
         else {
-            this.unhighlight();
+            if (strong) {
+                this.removeStrongHighlight();
+            } else {
+                this.removeWeakHighlight();
+            }
         }
     }
 
-    public void toggleHighlight() {
-        if (isHighlighted) {
+    public void toggleStrongHighlight() {
+        if (isStrongHighlighted) {
             this.unhighlight();
         }
         else {
-            this.highlight();
+            this.highlight(true);
         }
+    }
+
+    public boolean isWeakHighlighted() {
+        return isWeakHighlighted;
     }
 }
