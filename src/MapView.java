@@ -25,12 +25,19 @@ public class MapView {
         this.model = model;
         this.controller = controller;
         window = new BorderPane();
-
         Menu addMenu = new Menu("Add");
         Menu helpMenu = new Menu("Help");
 
         MenuItem addMenuPlayer = new MenuItem("Player");
+        addMenuPlayer.setOnAction(e -> {
+            CreatureCreatorView creatureView = new CreatureCreatorView(true);
+            creatureView.createWindow();
+        });
         MenuItem addMenuMonster = new MenuItem("Monster");
+        addMenuMonster.setOnAction(e -> {
+            CreatureCreatorView creatureView = new CreatureCreatorView(false);
+            creatureView.createWindow();
+        });
         MenuItem addMenuTerrain = new MenuItem("Terrain");
 
         addMenu.getItems().addAll(addMenuPlayer, addMenuMonster, addMenuTerrain);
@@ -208,5 +215,9 @@ public class MapView {
 
     public void setWindow(BorderPane window) {
         this.window = window;
+    }
+
+    public void createPlayerWindow() {
+
     }
 }
