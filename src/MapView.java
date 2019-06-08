@@ -51,6 +51,11 @@ public class MapView {
         ChoiceBox terrainsDropdown = new ChoiceBox(FXCollections.observableArrayList(terrainOptions));
         terrainsDropdown.setId("terrainsDropdown");
         Button applyToSelected = new Button("Apply");
+
+        Separator separator1 = new Separator(Orientation.HORIZONTAL);
+        separator1.setPadding(new Insets(10,0,5,0));
+        separator1.setMaxWidth(80);
+
         applyToSelected.setId("applyToSelected");
         Label selectShapeLabel = new Label("Shape Selection");
         String shapeOptions[] = {"Tile", "Circle", "Cylinder", "Sphere"};
@@ -58,8 +63,10 @@ public class MapView {
         shapeDropdown.setId("shapeDropdown");
         shapeDropdown.getSelectionModel().selectFirst();
 
-        Separator separator = new Separator(Orientation.HORIZONTAL);
-        separator.setPadding(new Insets(10,0,5,0));
+        Separator separator2 = new Separator(Orientation.HORIZONTAL);
+        separator2.setPadding(new Insets(10,0,5,0));
+        separator2.setMaxWidth(80);
+
         Label displayHeight = new Label("Shift Height");
         displayHeight.setWrapText(true);
         TextField displayHeightField = new TextField();
@@ -83,10 +90,11 @@ public class MapView {
                 terrain,
                 terrainsDropdown,
                 applyToSelected,
+                separator1,
                 selectShapeLabel,
                 shapeDropdown,
                 clearAll,
-                separator,
+                separator2,
                 displayHeight,
                 displayHeightField,
                 setHeight,
