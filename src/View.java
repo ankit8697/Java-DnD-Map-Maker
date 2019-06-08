@@ -20,6 +20,7 @@ public class View extends Application {
     VBox options;
     VBox key;
     GridPane grid;
+    Scene scene;
 
     public View() {
         this.model = new Model(20,20,21, this);
@@ -49,26 +50,29 @@ public class View extends Application {
 
         Label terrain = new Label("Terrain");
         String terrainOptions[] = {"Forest", "Ocean"};
-        ChoiceBox terrains = new ChoiceBox(FXCollections.observableArrayList(terrainOptions));
+        ChoiceBox terrainsDropdown = new ChoiceBox(FXCollections.observableArrayList(terrainOptions));
+        terrainsDropdown.setId("terrainsDropdown");
         Label highlight = new Label("Highlight");
         String highlightOptions[] = {"Circle", "Square", "Cylinder", "Sphere"};
-        ChoiceBox highlights = new ChoiceBox(FXCollections.observableArrayList(highlightOptions));
+        ChoiceBox highlightsDropdown = new ChoiceBox(FXCollections.observableArrayList(highlightOptions));
+        highlightsDropdown.setId("highlightsDropdown");
         Label displayHeight = new Label("Shift Height");
         displayHeight.setWrapText(true);
         TextField displayHeightField = new TextField();
+        displayHeightField.setId("displayHeightField");
         Label setHeight = new Label("Set Height");
         TextField setHeightField = new TextField();
         Label clickLabel = new Label("Click Actions");
         String[] clicks = { "Move", "Highlight", "Select",  "Delete"};
-        ChoiceBox clickOptions = new ChoiceBox(FXCollections.observableArrayList(clicks));
-
+        ChoiceBox clickOptionsDropdown = new ChoiceBox(FXCollections.observableArrayList(clicks));
+        clickOptionsDropdown.setId("clickOptionsDropdown");
         options.getChildren().addAll(
                 clickLabel,
-                clickOptions,
+                clickOptionsDropdown,
                 terrain,
-                terrains,
+                terrainsDropdown,
                 highlight,
-                highlights,
+                highlightsDropdown,
                 displayHeight,
                 displayHeightField,
                 setHeight,
@@ -136,8 +140,8 @@ public class View extends Application {
                 0, 0, 0, "Humanoid", attackDistances,
                 "TestName", "T3");
         model.getMapModel().addCreature(testCreature, model.getMapModel().getCube(3,4,1));
-        model.getMapModel().addCreature(anotherTestCreature, model.getMapModel().getCube(3,4,13));
-        model.getMapModel().addCreature(yetAnotherTestCreature, model.getMapModel().getCube(3,4,20));
+//        model.getMapModel().addCreature(anotherTestCreature, model.getMapModel().getCube(3,4,13));
+//        model.getMapModel().addCreature(yetAnotherTestCreature, model.getMapModel().getCube(3,4,20));
         model.getMapModel().addTerrain(testTerrain, testCubes);
         model.getMapModel().addTerrain(anotherTestTerrain, testCubes);
 
@@ -148,7 +152,8 @@ public class View extends Application {
         window.setLeft(options);
         window.setCenter(grid);
         window.setRight(key);
-        primaryStage.setScene(new Scene(window, 1000, 900));
+        scene = new Scene(window, 1000, 900);
+        primaryStage.setScene(scene);
         primaryStage.show();
 
     }
@@ -171,8 +176,34 @@ public class View extends Application {
         }
     }
 
+    public Model getModel() {
+        return model;
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public ChoiceBox getTerrainsDropdown() {
+        return (ChoiceBox) scene.lookup("#terrainsDropdown");
+    }
+
+    public ChoiceBox gethighlightsDropdown() {
+        return (ChoiceBox) scene.lookup("#highlightsDropdown");
+    }
+
+    public ChoiceBox getclicksOptionsDropdown() {
+        return (ChoiceBox) scene.lookup("#clicksOptionsDropdown");
+    }
+
+    public ChoiceBox getDisplayHeightField() {
+        return (ChoiceBox) scene.lookup("#displayHeightField");
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }
 
