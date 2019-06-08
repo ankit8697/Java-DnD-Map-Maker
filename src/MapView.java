@@ -1,5 +1,6 @@
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -56,6 +57,9 @@ public class MapView {
         ChoiceBox shapeDropdown = new ChoiceBox(FXCollections.observableArrayList(shapeOptions));
         shapeDropdown.setId("shapeDropdown");
         shapeDropdown.getSelectionModel().selectFirst();
+
+        Separator separator = new Separator(Orientation.HORIZONTAL);
+        separator.setPadding(new Insets(10,0,5,0));
         Label displayHeight = new Label("Shift Height");
         displayHeight.setWrapText(true);
         TextField displayHeightField = new TextField();
@@ -82,6 +86,7 @@ public class MapView {
                 selectShapeLabel,
                 shapeDropdown,
                 clearAll,
+                separator,
                 displayHeight,
                 displayHeightField,
                 setHeight,
