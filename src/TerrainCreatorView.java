@@ -16,8 +16,9 @@ import java.util.List;
 
 public class TerrainCreatorView {
 
-    @Override
+    //@Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Create Terrain");
+        BorderPane window = new BorderPane();
     }
 }

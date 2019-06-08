@@ -10,13 +10,20 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HelpView {
-    @Override
+    //@Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Help");
+        BorderPane window = new BorderPane();
+
+        Text helpTitle = new Text("Help");
+        helpTitle.setTextAlignment(TextAlignment.CENTER);
+        helpTitle.setFont(Font.font("Helvetica", FontWeight.BOLD));
+
     }
 }

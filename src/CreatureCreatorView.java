@@ -14,9 +14,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatureCreaterView {
-    @Override
+public class CreatureCreatorView {
+    //@Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Create Creature");
+        BorderPane window = new BorderPane();
     }
 }
