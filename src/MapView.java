@@ -62,6 +62,8 @@ public class MapView {
         ChoiceBox shapeDropdown = new ChoiceBox(FXCollections.observableArrayList(shapeOptions));
         shapeDropdown.setId("shapeDropdown");
         shapeDropdown.getSelectionModel().selectFirst();
+        TextField radius = new TextField();
+        radius.setId("radius");
 
         Separator separator2 = new Separator(Orientation.HORIZONTAL);
         separator2.setPadding(new Insets(10,0,5,0));
@@ -94,6 +96,7 @@ public class MapView {
                 separator1,
                 selectShapeLabel,
                 shapeDropdown,
+                radius,
                 clearAll,
                 separator2,
                 displayHeight,
@@ -105,7 +108,7 @@ public class MapView {
 
         key = new VBox();
         Label keyLabel = new Label("Key");
-        key.setPadding(new Insets(0,5,0,5));
+        key.setPadding(new Insets(0,10,0,10));
         key.setSpacing(5);
         List<Terrain> terrainsList = new ArrayList<>();
         updateKey(terrainsList);

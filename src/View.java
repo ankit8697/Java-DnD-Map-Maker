@@ -71,6 +71,7 @@ public class View extends Application {
 
         scene = new Scene(mapView.getWindow(), 1000, 900);
         primaryStage.setScene(scene);
+        controller.setScene(scene);
         primaryStage.show();
 
     }

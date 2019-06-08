@@ -182,7 +182,7 @@ public class Tile extends Button {
             this.unhighlight();
         }
         else {
-            this.highlight(true);
+            this.setHighlighted(true, true);
         }
     }
 

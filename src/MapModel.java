@@ -99,7 +99,7 @@ public class MapModel {
     }
 
     public Cube getCube(int x, int y, int z) throws IndexOutOfBoundsException {
-        if (x > dimensions[0] || y > dimensions[1] || z > dimensions[2] ||
+        if (x > dimensions[0]-1 || y > dimensions[1]-1 || z > dimensions[2]-1 ||
             x < 0 || y < 0 || z < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -143,7 +143,7 @@ public class MapModel {
             throw new IndexOutOfBoundsException();
         }
 
-        int targetHeight = dimensions[2]+1;
+        int targetHeight = dimensions[2]-1;
         ArrayList<Cube> column = map.get(x).get(y);
         int currentHeight = column.size();
         for (int i = currentHeight; i <= targetHeight; i++) {
@@ -163,11 +163,16 @@ public class MapModel {
     public ArrayList<Cube> getCircle(int r, int[] coordinates) {
         int reqRadius = r/5;
         ArrayList<Cube> cubes = new ArrayList<>();
+        if (r < 0) {
+            return cubes;
+        }
         for (int x = -reqRadius; x <= reqRadius; x++) {
-            if (!(x > dimensions[0] || x < 0)) {
+            int targetX = coordinates[0] + x;
+            if (!(targetX > dimensions[0]-1 || targetX < 0)) {
                 for (int y = -reqRadius; y <= reqRadius; y++) {
-                    if (!(y > dimensions[1] || y < 0)) {
-                        Cube currentCube = getCube(coordinates[0] + x, coordinates[1] + y, coordinates[2]);
+                    int targetY = coordinates[1] + y;
+                    if (!(targetY > dimensions[1]-1 || targetY < 0)) {
+                        Cube currentCube = getCube(targetX, targetY, coordinates[2]);
                         double distance = distanceType.distance(currentCube, coordinates[0], coordinates[1], coordinates[2]);
                         if (distance <= (double) r + 2.5) {
                             cubes.add(currentCube);
@@ -183,13 +188,19 @@ public class MapModel {
     public ArrayList<Cube> getSphere(int r, int[] coordinates) {
         int reqRadius = r/5;
         ArrayList<Cube> cubes = new ArrayList<>();
+        if (r < 0) {
+            return cubes;
+        }
         for (int x = -reqRadius; x <= reqRadius; x++) {
-            if (!(x > dimensions[0] || x < 0)) {
+            int targetX = coordinates[0] + x;
+            if (!(targetX > dimensions[0]-1 || targetX < 0)) {
                 for (int y = -reqRadius; y <= reqRadius; y++) {
-                    if (!(y > dimensions[1] || y < 0)) {
+                    int targetY = coordinates[1] + y;
+                    if (!(targetY > dimensions[1]-1 || targetY < 0)) {
                         for (int z = -reqRadius; z <= reqRadius; z++) {
-                            if (!(z > dimensions[2] || z < 0)) {
-                                Cube currentCube = getCube(coordinates[0]+x, coordinates[1]+y, coordinates[2]+z);
+                            int targetZ = coordinates[2] + z;
+                            if (!(targetZ > dimensions[2]-1 || targetZ < 0)) {
+                                Cube currentCube = getCube(targetX, targetY, targetZ);
                                 double distance = distanceType.distance(currentCube, coordinates[0], coordinates[1], coordinates[2]);
                                 if (distance <= (double) r+2.5) {
                                     cubes.add(currentCube);

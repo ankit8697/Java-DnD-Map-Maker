@@ -69,15 +69,19 @@ public class Cube {
     }
 
     public double getEuclideanDistanceToLocation(int x, int y, int z) {
-        double distance = Math.sqrt((x - this.coordinates[0]) ^ 2 +
-                (y - this.coordinates[1]) ^ 2 +
-                (z - this.coordinates[2]) ^ 2);
-        return distance*this.sideLength;
+        double distance = Math.sqrt(Math.pow((x - this.coordinates[0]), 2) +
+                Math.pow((y - this.coordinates[1]), 2) +
+                Math.pow((z - this.coordinates[2]), 2));
+        double feetDistance = distance * this.sideLength;
+        return feetDistance;
     }
 
     public double getDNDDistanceToLocation(int x, int y, int z) { // D&D does diagonals weirdly - don't ask
         ArrayList<Integer> distanceList = new ArrayList<>();
         int[] distances = {x - this.coordinates[0], y - this.coordinates[1], z - this.coordinates[2]};
+        for(int i = 0; i < distances.length; i++) {
+            distances[i] = Math.abs(distances[i]);
+        }
         for (int distance : distances) {
             distanceList.add(distance);
         }
