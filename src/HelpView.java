@@ -17,10 +17,8 @@ import java.util.List;
 
 public class HelpView {
     //@Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Help");
+    public HelpView(View view) {
         BorderPane window = new BorderPane();
-
         Text helpTitle = new Text("Help");
         helpTitle.setTextAlignment(TextAlignment.CENTER);
         helpTitle.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
