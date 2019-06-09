@@ -57,6 +57,7 @@ public class TerrainCreatorView {
                 hasEventOnEndTurnLabel,
                 hasEventOnEndTurnCheckBox
                 );
+        eventsBox.setAlignment(Pos.BASELINE_CENTER);
 
         Label moveTypeHeader = new Label("This terrain is passable for: ");
         CheckBox isPassableForWalkSpeed = new CheckBox();
@@ -88,6 +89,7 @@ public class TerrainCreatorView {
                 isPassableForFlySpeedLabel,
                 isPassableForFlySpeed
         );
+        passableBox.setAlignment(Pos.BASELINE_CENTER);
 
         TextField walkSpeedCost = new TextField();
         walkSpeedCost.setId("walkSpeedCost");
@@ -112,6 +114,7 @@ public class TerrainCreatorView {
                 burrowSpeedCost,
                 flySpeedCost
         );
+        costBox.setAlignment(Pos.BASELINE_CENTER);
 
         Label colorLabel = new Label("Please enter RGB values from 0-255:");
         TextField redValue = new TextField();
@@ -130,10 +133,12 @@ public class TerrainCreatorView {
                 greenValue,
                 blueValue
         );
+        colorBox.setAlignment(Pos.BASELINE_CENTER);
 
         Button submit = new Button("Submit");
         submit.setOnAction(e -> clickSubmit());
         submit.setId("terrainSubmit");
+        submit.setAlignment(Pos.BASELINE_CENTER);
 
         terrain.getChildren().addAll(
                 nameBox,
