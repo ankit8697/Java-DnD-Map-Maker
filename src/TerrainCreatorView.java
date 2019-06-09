@@ -30,9 +30,15 @@ public class TerrainCreatorView {
         terrain.setSpacing(15);
         terrain.setPadding(new Insets(10,10,10,10));
 
+        Label nameLabel = new Label("Terrain Name:");
         TextField terrainName = new TextField();
         terrainName.setId("terrainName");
         terrainName.setPromptText("Terrain Name");
+        terrainName.setMaxWidth(300);
+        terrainName.setAlignment(Pos.BASELINE_CENTER);
+        HBox nameBox = new HBox(5);
+        nameBox.getChildren().addAll(nameLabel,terrainName);
+        nameBox.setAlignment(Pos.BASELINE_CENTER);
 
         CheckBox hasEventOnEnterCheckBox = new CheckBox();
         hasEventOnEnterCheckBox.setId("hasEventOnEnterCheckBox");
@@ -107,7 +113,7 @@ public class TerrainCreatorView {
                 flySpeedCost
         );
 
-        Label colorLabel = new Label("Please enter RGB values from 0-255 below");
+        Label colorLabel = new Label("Please enter RGB values from 0-255:");
         TextField redValue = new TextField();
         redValue.setId("redValue");
         redValue.setPromptText("Red");
@@ -130,7 +136,7 @@ public class TerrainCreatorView {
         submit.setId("terrainSubmit");
 
         terrain.getChildren().addAll(
-                terrainName,
+                nameBox,
                 eventsBox,
                 passableBox,
                 costBox,
@@ -140,7 +146,7 @@ public class TerrainCreatorView {
 
 
 
-        scene = new Scene(terrain, 400, 600);
+        scene = new Scene(terrain, 900, 300);
         stage.setScene(scene);
         stage.show();
     }
@@ -197,7 +203,8 @@ public class TerrainCreatorView {
         int blue = Integer.parseInt(blueValue.getText());
         Color color = Color.rgb(red, green, blue);
 
-//        controller.addTerrain();
+        controller.addTerrain(moveCostArray,isPassableArray,eventOnStartTurn,
+                eventOnEnter,eventOnEndTurn,name,color);
         stage.close();
 
     }
