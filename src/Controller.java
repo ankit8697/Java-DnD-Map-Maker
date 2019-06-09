@@ -104,12 +104,20 @@ public class Controller {
                             String creatureType,
                             int[] attackDistances,
                             String name,
-                            String displayName) {
-        Creature creature = new Creature(isPlayer, hp, initiativeBonus, walkSpeed,
-                                swimSpeed, flySpeed, burrowSpeed,
-                                climbSpeed, creatureType, attackDistances,
-                                name, displayName);
-        model.getMapModel().addCreatureToList(creature);
+                            String displayName,
+                            int numberOfCreatures) {
+        for (int i=1; i <= numberOfCreatures; i++) {
+            Creature creature = null;
+            if (numberOfCreatures > 1) {
+                name = name + " " + i;
+            }
+            creature = new Creature(isPlayer, hp, initiativeBonus, walkSpeed,
+                    swimSpeed, flySpeed, burrowSpeed,
+                    climbSpeed, creatureType, attackDistances,
+                    name, displayName);
+            model.getMapModel().addCreatureToList(creature);
+            this.popupCreatureLocationGiver(creature);
+        }
         view.mapView.updateCreatures();
     }
 
@@ -124,6 +132,14 @@ public class Controller {
 
     }
 
+
+    private void popupCreatureLocationGiver(Creature creature) {
+
+    }
+
+    private void giveCreatureALocation(Creature creature) {
+
+    }
 
     public Scene getScene() {
         return scene;

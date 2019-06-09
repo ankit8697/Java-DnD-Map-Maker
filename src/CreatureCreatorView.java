@@ -32,6 +32,7 @@ public class CreatureCreatorView {
         Label numberOfCreaturesLabel = new Label("Number of Creatures: ");
         numberOfCreatures.setAlignment(Pos.BASELINE_RIGHT);
         numberOfCreatures.setMaxWidth(40);
+        numberOfCreatures.setId("numberOfCreatures");
         HBox isPlayerChoice = new HBox(5);
         isPlayerChoice.getChildren().addAll(isPlayerLabel, isPlayerCheckBox, numberOfCreaturesLabel, numberOfCreatures);
         TextField hp = new TextField();
@@ -97,32 +98,71 @@ public class CreatureCreatorView {
         boolean isPlayer = isPlayerCheckBox.isSelected();
 
         TextField hpTextField = (TextField) scene.lookup("#hp");
-        int hp = Integer.parseInt(hpTextField.getText());
+        int hp = 0;
+        try {
+            hp = Integer.parseInt(hpTextField.getText());
+        } catch (NumberFormatException e) {
+            hp = 0;
+        }
 
         TextField initiativeBonusTextField = (TextField) scene.lookup("#initiativeBonus");
-        int initiativeBonus = Integer.parseInt(initiativeBonusTextField.getText());
+        int initiativeBonus = 0;
+        try {
+            initiativeBonus = Integer.parseInt(initiativeBonusTextField.getText());
+        } catch (NumberFormatException e) {
+            initiativeBonus = 0;
+        }
 
         TextField walkSpeedTextField = (TextField) scene.lookup("#walkSpeed");
-        int walkSpeed = Integer.parseInt(walkSpeedTextField.getText());
+        int walkSpeed = 0;
+        try {
+            walkSpeed = Integer.parseInt(walkSpeedTextField.getText());
+        } catch (NumberFormatException e) {
+            walkSpeed = 0;
+        }
 
         TextField swimSpeedTextField = (TextField) scene.lookup("#swimSpeed");
-        int swimSpeed = Integer.parseInt(swimSpeedTextField.getText());
+        int swimSpeed = 0;
+        try {
+            swimSpeed = Integer.parseInt(swimSpeedTextField.getText());
+        } catch (NumberFormatException e) {
+            swimSpeed = 0;
+        }
 
         TextField flySpeedTextField = (TextField) scene.lookup("#flySpeed");
-        int flySpeed = Integer.parseInt(flySpeedTextField.getText());
+        int flySpeed = 0;
+        try {
+            flySpeed = Integer.parseInt(flySpeedTextField.getText());
+        } catch (NumberFormatException e) {
+            flySpeed = 0;
+        }
 
         TextField burrowSpeedTextField = (TextField) scene.lookup("#burrowSpeed");
-        int burrowSpeed = Integer.parseInt(burrowSpeedTextField.getText());
+        int burrowSpeed = 0;
+        try {
+            burrowSpeed = Integer.parseInt(burrowSpeedTextField.getText());
+        } catch (NumberFormatException e) {
+            burrowSpeed = 0;
+        }
 
         TextField climbSpeedTextField = (TextField) scene.lookup("#climbSpeed");
-        int climbSpeed = Integer.parseInt(climbSpeedTextField.getText());
+        int climbSpeed = 0;
+        try {
+            climbSpeed = Integer.parseInt(climbSpeedTextField.getText());
+        } catch (NumberFormatException e) {
+            climbSpeed = 0;
+        }
 
         TextField creatureTypeTextField = (TextField) scene.lookup("#creatureType");
         String creatureType = creatureTypeTextField.getText();
 
         TextField attackDistancesTextField = (TextField) scene.lookup("#attackDistances");
         int[] attackDistances = new int[3];
-        attackDistances[0] = Integer.parseInt(attackDistancesTextField.getText());
+        try {
+            attackDistances[0] = Integer.parseInt(attackDistancesTextField.getText());
+        } catch (NumberFormatException e) {
+            attackDistances[0] = 0;
+        }
 
         TextField nameTextField = (TextField) scene.lookup("#name");
         String name = nameTextField.getText();
@@ -130,9 +170,17 @@ public class CreatureCreatorView {
         TextField displayNameTextField = (TextField) scene.lookup("#displayName");
         String displayName = displayNameTextField.getText();
 
+        TextField numberOfCreaturesTextField = (TextField) scene.lookup("#numberOfCreatures");
+        int numberOfCreatures = 1;
+        try {
+            numberOfCreatures = Integer.parseInt(numberOfCreaturesTextField.getText());
+        } catch (NumberFormatException e) {
+            numberOfCreatures = 1;
+        }
+
         controller.addCreature(isPlayer, hp, initiativeBonus, walkSpeed,
                 swimSpeed, flySpeed, burrowSpeed, climbSpeed, creatureType,
-                attackDistances, name, displayName);
+                attackDistances, name, displayName, numberOfCreatures);
 
         stage.close();
     }

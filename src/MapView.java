@@ -50,6 +50,10 @@ public class MapView {
             creatureView.createWindow();
         });
         MenuItem addMenuTerrain = new MenuItem("Terrain");
+        addMenuTerrain.setOnAction(e -> {
+            TerrainCreatorView terrainView = new TerrainCreatorView(controller);
+            terrainView.createWindow();
+        });
 
         addMenu.getItems().addAll(addMenuCreature, addMenuTerrain);
         menuBar = new MenuBar();
