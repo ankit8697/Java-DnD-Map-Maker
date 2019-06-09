@@ -186,4 +186,25 @@ public class Controller {
     public void setScene(Scene scene) {
         this.scene = scene;
     }
+
+    public void moveSelectedCreature() {
+        ChoiceBox creaturesDropdown = (ChoiceBox) view.getScene().lookup("#creaturesDropdown");
+        Creature selectedCreature = (Creature) creaturesDropdown.getSelectionModel().getSelectedItem();
+        creaturesToAdd.add(selectedCreature);
+        popupCreatureLocationGiver(creaturesToAdd.peek());
+    }
+
+    public void deleteSelectedCreature() {
+        ChoiceBox creaturesDropdown = (ChoiceBox) view.getScene().lookup("#creaturesDropdown");
+        Creature selectedCreature = (Creature) creaturesDropdown.getSelectionModel().getSelectedItem();
+        model.getMapModel().deleteCreature(selectedCreature);
+        view.mapView.updateCreatures();
+    }
+
+    public void applySelectedTerrainToCubes() {
+
+    }
+
+    public void removeSelectedTerrain() {
+    }
 }

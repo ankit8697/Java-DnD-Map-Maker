@@ -113,7 +113,9 @@ public class MapView {
         separator1.setMaxWidth(80);
 
         Button creatureMoveButton = new Button("Move");
+        creatureMoveButton.setOnAction(event -> controller.moveSelectedCreature());
         Button creatureDeleteButton = new Button("Delete");
+        creatureDeleteButton.setOnAction(event -> controller.deleteSelectedCreature());
         HBox creatureButtons = new HBox(10);
         creatureButtons.setAlignment(Pos.BASELINE_CENTER);
         creatureButtons.getChildren().addAll(creatureMoveButton, creatureDeleteButton);
@@ -122,11 +124,14 @@ public class MapView {
         separator3.setPadding(new Insets(10,0,5,0));
         separator3.setMaxWidth(80);
         Button applyToSelected = new Button("Apply");
+        applyToSelected.setOnAction(event -> controller.applySelectedTerrainToCubes());
         Button terrainDeleteButton = new Button("Delete");
+        terrainDeleteButton.setOnAction(event -> controller.removeSelectedTerrain());
         HBox terrainButtons = new HBox(10);
         terrainButtons.setAlignment(Pos.BASELINE_CENTER);
         terrainButtons.getChildren().addAll(applyToSelected, terrainDeleteButton);
         applyToSelected.setId("applyToSelected");
+
         Label selectShapeLabel = new Label("Shape Selection");
         String shapeOptions[] = {"Tile", "Circle", "Cylinder", "Sphere"};
         ChoiceBox shapeDropdown = new ChoiceBox(FXCollections.observableArrayList(shapeOptions));
