@@ -185,15 +185,42 @@ public class TerrainCreatorView {
 
         ArrayList<Integer> moveCostArray = new ArrayList<Integer>();
         TextField walkSpeedCost = (TextField) scene.lookup("#walkSpeedCost");
-        int costForWalking = Integer.parseInt(walkSpeedCost.getText());
+        int costForWalking = 0;
+        try {
+            costForWalking = Integer.parseInt(walkSpeedCost.getText());
+        } catch (NumberFormatException e) {
+            costForWalking = 0;
+        }
+
         TextField swimSpeedCost = (TextField) scene.lookup("#swimSpeedCost");
-        int costForSwimming = Integer.parseInt(swimSpeedCost.getText());
+        int costForSwimming = 0;
+        try {
+            costForSwimming = Integer.parseInt(swimSpeedCost.getText());
+        } catch(NumberFormatException e){
+            costForSwimming = 0;
+        }
+
         TextField climbSpeedCost = (TextField) scene.lookup("#climbSpeedCost");
-        int costForClimbing = Integer.parseInt(climbSpeedCost.getText());
+        int costForClimbing = 0;
+        try {
+            costForClimbing = Integer.parseInt(climbSpeedCost.getText());
+        } catch (NumberFormatException e) {
+            costForClimbing = 0;
+        }
         TextField burrowSpeedCost = (TextField) scene.lookup("#burrowSpeedCost");
-        int costForBurrowing = Integer.parseInt(burrowSpeedCost.getText());
+        int costForBurrowing = 0;
+        try {
+            costForBurrowing = Integer.parseInt(burrowSpeedCost.getText());
+        } catch (NumberFormatException e) {
+            costForBurrowing = 0;
+        }
         TextField flySpeedCost = (TextField) scene.lookup("#flySpeedCost");
-        int costForFlying = Integer.parseInt(flySpeedCost.getText());
+        int costForFlying = 0;
+        try {
+            costForFlying = Integer.parseInt(flySpeedCost.getText());
+        } catch (NumberFormatException e) {
+            costForFlying = 0;
+        }
         moveCostArray.add(costForWalking);
         moveCostArray.add(costForSwimming);
         moveCostArray.add(costForClimbing);
@@ -201,11 +228,26 @@ public class TerrainCreatorView {
         moveCostArray.add(costForFlying);
 
         TextField redValue = (TextField) scene.lookup("#redValue");
-        int red =  Integer.parseInt(redValue.getText());
+        int red = 0;
+        try {
+            red = Integer.parseInt(redValue.getText());
+        } catch (NumberFormatException e) {
+            red = 0;
+        }
         TextField greenValue = (TextField) scene.lookup("#redValue");
-        int green =  Integer.parseInt(greenValue.getText());
+        int green = 0;
+        try {
+            green = Integer.parseInt(greenValue.getText());
+        } catch (NumberFormatException e) {
+            green = 0;
+        }
         TextField blueValue = (TextField) scene.lookup("#blueValue");
-        int blue = Integer.parseInt(blueValue.getText());
+        int blue = 0;
+        try {
+            blue = Integer.parseInt(blueValue.getText());
+        } catch (NumberFormatException e) {
+            blue = 0;
+        }
         Color color = Color.rgb(red, green, blue);
 
         controller.addTerrain(moveCostArray,isPassableArray,eventOnStartTurn,
