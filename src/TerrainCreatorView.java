@@ -23,7 +23,7 @@ public class TerrainCreatorView {
         this.controller = controller;
     }
     public void createWindow() {
-        Stage stage = new Stage();
+        stage = new Stage();
         stage.setTitle("Create Terrain");
         VBox terrain = new VBox();
         terrain.setAlignment(Pos.BASELINE_CENTER);
@@ -44,7 +44,7 @@ public class TerrainCreatorView {
         hasEventOnEnterCheckBox.setId("hasEventOnEnterCheckBox");
         Label hasEventOnEnterLabel = new Label("Has event on entering space?");
         CheckBox hasEventOnStartTurnCheckBox = new CheckBox();
-        hasEventOnStartTurnCheckBox.setId("hasEventOnEnterCheckBox");
+        hasEventOnStartTurnCheckBox.setId("hasEventOnStartTurnCheckBox");
         Label hasEventOnStartTurnLabel = new Label("Has event on starting a turn in the space?");
         CheckBox hasEventOnEndTurnCheckBox = new CheckBox();
         hasEventOnEndTurnCheckBox.setId("hasEventOnEndTurnCheckBox");
@@ -151,7 +151,7 @@ public class TerrainCreatorView {
         stage.show();
     }
     public void clickSubmit() {
-        TextField terrainName = (TextField) scene.lookup("terrainName");
+        TextField terrainName = (TextField) scene.lookup("#terrainName");
         String name = terrainName.getText();
 
         CheckBox hasEventOnStartTurnCheckBox = (CheckBox) scene.lookup("#hasEventOnStartTurnCheckBox");

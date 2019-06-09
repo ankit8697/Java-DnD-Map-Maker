@@ -127,7 +127,13 @@ public class Controller {
                            boolean eventOnEnter,
                            boolean eventOnEndTurn,
                            String name,
-                           Color color){
+                           Color color) {
+        Terrain terrain = new Terrain(moveCostArray, isPassableArray,
+                                    eventOnStartTurn, eventOnEnter,
+                                    eventOnEndTurn, name, color);
+
+        model.getMapModel().addTerrain(terrain);
+        view.mapView.updateTerrain();
 
     }
 
