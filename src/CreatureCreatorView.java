@@ -60,7 +60,7 @@ public class CreatureCreatorView {
         attackDistances.setPromptText("Largest Attack Distance");
         attackDistances.setId("attackDistances");
         name.setId("name");
-        name.setPromptText("Player Name");
+        name.setPromptText("Creature Name");
         TextField displayName = new TextField();
         displayName.setId("displayName");
         displayName.setPromptText("Display Name");

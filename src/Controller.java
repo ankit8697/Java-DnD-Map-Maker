@@ -109,6 +109,7 @@ public class Controller {
                                 climbSpeed, creatureType, attackDistances,
                                 name, displayName);
         model.getMapModel().addCreatureToList(creature);
+        view.mapView.updateCreatures();
     }
 
     public Scene getScene() {

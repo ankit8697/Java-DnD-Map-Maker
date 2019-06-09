@@ -1,5 +1,6 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -9,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,9 @@ public class MapView {
     GridPane grid;
     BorderPane window;
     Controller controller;
+    ArrayList<Creature> creatures;
+    ChoiceBox terrainsDropdown;
+    ChoiceBox creaturesDropdown;
 
     public MapView(Model model, Controller controller) {
         this.model = model;
@@ -56,13 +61,36 @@ public class MapView {
         optionsHeader.setAlignment(Pos.BASELINE_CENTER);
         Label terrain = new Label("Terrain");
         ArrayList<Terrain> terrains = model.getMapModel().getTerrains();
-//        TODO Fix dropdowns to get names of Creatures
-        ChoiceBox terrainsDropdown = new ChoiceBox(FXCollections.observableArrayList(terrains));
+        terrainsDropdown = new ChoiceBox();
+        terrainsDropdown.getItems().setAll(terrains);
+        terrainsDropdown.setConverter(new StringConverter<Terrain>() {
+            @Override
+            public String toString(Terrain terrain) {
+                return terrain.getName();
+            }
+
+            @Override
+            public Terrain fromString(String string) {
+                return null;
+            }
+        });
         terrainsDropdown.setId("terrainsDropdown");
         Label creature = new Label("Creature");
-        ArrayList<Creature> creatures = model.getMapModel().getCreatures();
-        ChoiceBox creaturesDropDown = new ChoiceBox(FXCollections.observableArrayList(creatures));
-        creaturesDropDown.setId("creaturesDropdown");
+        creatures = model.getMapModel().getCreatures();
+        creaturesDropdown = new ChoiceBox();
+        creaturesDropdown.getItems().setAll(creatures);
+        creaturesDropdown.setConverter(new StringConverter<Creature>() {
+            @Override
+            public String toString(Creature creature) {
+                return creature.getName();
+            }
+
+            @Override
+            public Creature fromString(String string) {
+                return null;
+            }
+        });
+        creaturesDropdown.setId("creaturesDropdown");
         Button applyToSelected = new Button("Apply");
 
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
@@ -106,7 +134,7 @@ public class MapView {
                 terrain,
                 terrainsDropdown,
                 creature,
-                creaturesDropDown,
+                creaturesDropdown,
                 applyToSelected,
                 separator1,
                 selectShapeLabel,
@@ -225,7 +253,8 @@ public class MapView {
         this.window = window;
     }
 
-    public void createPlayerWindow() {
-
+    public void updateCreatures() {
+        this.creatures = model.getMapModel().getCreatures();
     }
+
 }
