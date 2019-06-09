@@ -1,6 +1,8 @@
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -24,8 +26,11 @@ public class MapView {
     BorderPane window;
     Controller controller;
     ArrayList<Creature> creatures;
+    ArrayList<Terrain> terrains;
     ChoiceBox terrainsDropdown;
     ChoiceBox creaturesDropdown;
+    ObservableList<Creature> observableCreatureList;
+    ObservableList<Terrain> observableTerrainList;
 
     public MapView(Model model, Controller controller) {
         this.model = model;
@@ -60,13 +65,17 @@ public class MapView {
         optionsHeader.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
         optionsHeader.setAlignment(Pos.BASELINE_CENTER);
         Label terrain = new Label("Terrain");
-        ArrayList<Terrain> terrains = model.getMapModel().getTerrains();
+        terrains = model.getMapModel().getTerrains();
+        observableTerrainList = FXCollections.observableArrayList(terrains);
         terrainsDropdown = new ChoiceBox();
-        terrainsDropdown.getItems().setAll(terrains);
+        terrainsDropdown.getItems().setAll(observableTerrainList);
         terrainsDropdown.setConverter(new StringConverter<Terrain>() {
             @Override
             public String toString(Terrain terrain) {
-                return terrain.getName();
+                if (terrain != null) {
+                    return terrain.getName();
+                }
+                return "";
             }
 
             @Override
@@ -77,12 +86,16 @@ public class MapView {
         terrainsDropdown.setId("terrainsDropdown");
         Label creature = new Label("Creature");
         creatures = model.getMapModel().getCreatures();
+        observableCreatureList = FXCollections.observableArrayList(creatures);
         creaturesDropdown = new ChoiceBox();
-        creaturesDropdown.getItems().setAll(creatures);
+        creaturesDropdown.getItems().setAll(observableCreatureList);
         creaturesDropdown.setConverter(new StringConverter<Creature>() {
             @Override
             public String toString(Creature creature) {
-                return creature.getName();
+                if (creature != null) {
+                    return creature.getName();
+                }
+                return "";
             }
 
             @Override
@@ -254,7 +267,13 @@ public class MapView {
     }
 
     public void updateCreatures() {
-        this.creatures = model.getMapModel().getCreatures();
+        this.observableCreatureList = FXCollections.observableArrayList(this.creatures);
+        creaturesDropdown.setItems(this.observableCreatureList);
+    }
+
+    public void updateTerrain() {
+        this.observableTerrainList = FXCollections.observableArrayList(this.terrains);
+        terrainsDropdown.setItems(this.observableTerrainList);
     }
 
 }

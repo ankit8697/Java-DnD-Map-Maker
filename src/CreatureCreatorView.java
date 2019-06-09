@@ -28,9 +28,12 @@ public class CreatureCreatorView {
         CheckBox isPlayerCheckBox = new CheckBox();
         isPlayerCheckBox.setId("isPlayerCheckBox");
         Label isPlayerLabel = new Label("Are you a player?");
-
+        TextField numberOfCreatures = new TextField("1");
+        Label numberOfCreaturesLabel = new Label("Number of Creatures: ");
+        numberOfCreatures.setAlignment(Pos.BASELINE_RIGHT);
+        numberOfCreatures.setMaxWidth(40);
         HBox isPlayerChoice = new HBox(5);
-        isPlayerChoice.getChildren().addAll(isPlayerLabel, isPlayerCheckBox);
+        isPlayerChoice.getChildren().addAll(isPlayerLabel, isPlayerCheckBox, numberOfCreaturesLabel, numberOfCreatures);
         TextField hp = new TextField();
         hp.setId("hp");
         hp.setPromptText("HP");
