@@ -18,24 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapView {
-    Model model;
-    MenuBar menuBar;
-    VBox options;
-    VBox key;
-    GridPane grid;
-    BorderPane window;
-    Controller controller;
-    ArrayList<Creature> creatures;
-    ArrayList<Terrain> terrains;
-    ChoiceBox terrainsDropdown;
-    ChoiceBox creaturesDropdown;
-    ObservableList<Creature> observableCreatureList;
-    ObservableList<Terrain> observableTerrainList;
+    private Model model;
+    private MenuBar menuBar;
+    private VBox options;
+    private VBox key;
+    private GridPane grid;
+    private List<Tile> tiles;
+    private BorderPane window;
+    private Controller controller;
+    private ArrayList<Creature> creatures;
+    private ArrayList<Terrain> terrains;
+    private ChoiceBox terrainsDropdown;
+    private ChoiceBox creaturesDropdown;
+    private ObservableList<Creature> observableCreatureList;
+    private ObservableList<Terrain> observableTerrainList;
 
     public MapView(Model model, Controller controller) {
         this.model = model;
         this.controller = controller;
         window = new BorderPane();
+        tiles = new ArrayList<>();
         Menu addMenu = new Menu("Add");
         Menu helpMenu = new Menu("Help");
 
@@ -151,16 +153,21 @@ public class MapView {
         displayHeightField.setId("displayHeightField");
         Label setHeight = new Label("Set Height");
         TextField setHeightField = new TextField();
+
         Label clickLabel = new Label("Click Actions");
-        String[] clicks = { "Move", "Highlight", "Select", "Unselect", "Delete"};
+        String[] clicks = { "Highlight", "Select", "Unselect"};
         ChoiceBox clickOptionsDropdown = new ChoiceBox(FXCollections.observableArrayList(clicks));
         clickOptionsDropdown.setId("clickOptionsDropdown");
         clickOptionsDropdown.getSelectionModel().select(1);
+
         Text selectedCubes = new Text("Selected: ");
         Text numberOfSelectedCubes = new Text();
+        numberOfSelectedCubes.setId("numberOfSelectedCubes");
+
         HBox selectedCubeCounter = new HBox();
         selectedCubeCounter.getChildren().addAll(selectedCubes, numberOfSelectedCubes);
         Button clearAll = new Button("Clear All");
+        clearAll.setOnAction(event -> controller.clearAllSelections());
         clearAll.setId("clearAll");
         options.getChildren().addAll(
                 optionsHeader,
@@ -200,7 +207,7 @@ public class MapView {
         for (int x = 0; x < xMax; x++) {
             for (int y = 0; y < yMax; y++) {
                 Tile tile = new Tile(model.getMapModel().getCube(x,y,0), model.getMapModel());
-//                tile.setStyle("-fx-background-color: yellow");
+                this.tiles.add(tile);
                 grid.setHgrow(tile, Priority.ALWAYS);
                 grid.setVgrow(tile, Priority.ALWAYS);
                 tile.setAlignment(Pos.CENTER);
@@ -266,6 +273,10 @@ public class MapView {
         return window;
     }
 
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
     public void setModel(Model model) {
         this.model = model;
     }
@@ -289,7 +300,6 @@ public class MapView {
     public void setWindow(BorderPane window) {
         this.window = window;
     }
-
 
 
     public void updateCreatures() {
