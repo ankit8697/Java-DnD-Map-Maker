@@ -197,7 +197,7 @@ public class TerrainCreatorView {
         int blue = Integer.parseInt(blueValue.getText());
         Color color = Color.rgb(red, green, blue);
 
-        controller.addTerrain();
+//        controller.addTerrain();
         stage.close();
 
     }
