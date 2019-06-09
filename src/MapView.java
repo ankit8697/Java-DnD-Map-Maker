@@ -121,6 +121,7 @@ public class MapView {
         shapeDropdown.setId("shapeDropdown");
         shapeDropdown.getSelectionModel().selectFirst();
         TextField radius = new TextField();
+        radius.setPromptText("Radius (ft)");
         radius.setId("radius");
 
         Separator separator2 = new Separator(Orientation.HORIZONTAL);
