@@ -72,9 +72,11 @@ public class Tile extends Button {
         this.updateTerrains(terrains);
         this.updateCreatures(creatures);
         if (isStrongHighlighted) {
+            this.isStrongHighlighted = false;
             this.highlight(true);
         }
         if (isWeakHighlighted) {
+            this.isWeakHighlighted = false;
             this.highlight(false);
         }
     }

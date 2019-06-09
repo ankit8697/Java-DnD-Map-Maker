@@ -3,43 +3,54 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Controller {
     View view;
     Model model;
     Scene scene;
     List<Cube> selectedCubes;
+    Queue<Creature> creaturesToAdd;
+    CreatureLocationPopup currentPopup;
 
     public Controller(View view) {
         this.view = view;
         this.model = view.getModel();
         scene = view.getScene();
         selectedCubes = new ArrayList<>();
+        creaturesToAdd = new ArrayDeque<>();
     }
 
     public void onTileClick(Tile tile) {
-        ChoiceBox clickOptions = (ChoiceBox) scene.lookup("#clickOptionsDropdown");
-        String selectedOption = (String) clickOptions.getValue();
-        switch (selectedOption) {
-            case "Move":
-                break;
-            case "Highlight":
-                ArrayList<Cube> cubes = getCubesInShape(tile);
-                for (Cube cube : cubes) {
-                    if (cube == cube.getTile().getCube()) {
-                        cube.getTile().toggleStrongHighlight();
+        if (creaturesToAdd.isEmpty()) {
+            ChoiceBox clickOptions = (ChoiceBox) scene.lookup("#clickOptionsDropdown");
+            String selectedOption = (String) clickOptions.getValue();
+            switch (selectedOption) {
+                case "Move":
+                    break;
+                case "Highlight":
+                    ArrayList<Cube> cubes = getCubesInShape(tile);
+                    for (Cube cube : cubes) {
+                        if (cube == cube.getTile().getCube()) {
+                            cube.getTile().toggleStrongHighlight();
+                        }
                     }
-                }
-                break;
-            case "Select":
-                break;
-            case "Unselect":
-                break;
-            case "Delete":
-                break;
+                    break;
+                case "Select":
+                    break;
+                case "Unselect":
+                    break;
+                case "Delete":
+                    break;
+            }
+        } else {
+            giveCreatureALocation(creaturesToAdd.poll(), tile);
         }
     }
 
@@ -108,17 +119,21 @@ public class Controller {
                             int numberOfCreatures) {
         for (int i=1; i <= numberOfCreatures; i++) {
             Creature creature = null;
+            String tempName = name;
+            String tempDisplayName = displayName;
             if (numberOfCreatures > 1) {
-                name = name + " " + i;
+                tempName = name + " " + i;
+                tempDisplayName = displayName + i;
             }
             creature = new Creature(isPlayer, hp, initiativeBonus, walkSpeed,
                     swimSpeed, flySpeed, burrowSpeed,
                     climbSpeed, creatureType, attackDistances,
-                    name, displayName);
+                    tempName, tempDisplayName);
             model.getMapModel().addCreatureToList(creature);
-            this.popupCreatureLocationGiver(creature);
+            creaturesToAdd.add(creature);
         }
         view.mapView.updateCreatures();
+        this.popupCreatureLocationGiver();
     }
 
     public void addTerrain(ArrayList<Integer> moveCostArray,
@@ -138,12 +153,30 @@ public class Controller {
     }
 
 
-    private void popupCreatureLocationGiver(Creature creature) {
+    private void popupCreatureLocationGiver() {
+        currentPopup = new CreatureLocationPopup(view.getStage());
 
     }
 
-    private void giveCreatureALocation(Creature creature) {
-
+    private void giveCreatureALocation(Creature creature, Tile tile) {
+        Cube baseCube = tile.getCube();
+        TextField heightField = currentPopup.getHeightField();
+        int height;
+        try {
+            height = Integer.parseInt(heightField.getText());
+        } catch (NumberFormatException e) {
+            height = 0;
+        }
+        int xPos = baseCube.getCoordinates()[0];
+        int yPos = baseCube.getCoordinates()[1];
+        int zPos = baseCube.getCoordinates()[2] + height/baseCube.getSideLength();
+        Cube targetCube = model.getMapModel().getCube(xPos, yPos, zPos);
+        model.getMapModel().moveCreature(creature, targetCube);
+        currentPopup.hide();
+        currentPopup = null;
+        if(!(creaturesToAdd.isEmpty())) {
+            popupCreatureLocationGiver();
+        }
     }
 
     public Scene getScene() {

@@ -71,7 +71,7 @@ public class MapModel {
         view.getMapView().updateKey(terrains);
     }
 
-    public void addCreature(Creature creature, Cube cube) {
+    public void moveCreature(Creature creature, Cube cube) {
         creature.setCurrentLocation(cube);
     }
 
@@ -226,10 +226,6 @@ public class MapModel {
             cubes.addAll(column);
         }
         return cubes;
-    }
-
-    public void moveCreature(Creature aCreature, Cube destCube){
-        aCreature.setCurrentLocation(destCube);
     }
 
     public void moveTerrain(ArrayList<Cube> destCubes, Terrain terrainToMove){

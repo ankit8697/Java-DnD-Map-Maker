@@ -270,6 +270,8 @@ public class MapView {
         this.window = window;
     }
 
+
+
     public void updateCreatures() {
         this.observableCreatureList = FXCollections.observableArrayList(this.creatures);
         creaturesDropdown.setItems(this.observableCreatureList);

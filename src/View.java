@@ -11,6 +11,7 @@ public class View extends Application {
     Scene scene;
     MapView mapView;
     Controller controller;
+    Stage stage;
 
     public View() {
         this.model = new Model(20,20,21, this);
@@ -55,9 +56,9 @@ public class View extends Application {
         Creature yetAnotherTestCreature = new Creature(false, 0, 0, 0, 0,
                 0, 0, 0, "Humanoid", attackDistances,
                 "TestName", "T3");
-        model.getMapModel().addCreature(testCreature, model.getMapModel().getCube(3,4,1));
-//        model.getMapModel().addCreature(anotherTestCreature, model.getMapModel().getCube(3,4,13));
-//        model.getMapModel().addCreature(yetAnotherTestCreature, model.getMapModel().getCube(3,4,20));
+        model.getMapModel().moveCreature(testCreature, model.getMapModel().getCube(3,4,1));
+//        model.getMapModel().moveCreature(anotherTestCreature, model.getMapModel().getCube(3,4,13));
+//        model.getMapModel().moveCreature(yetAnotherTestCreature, model.getMapModel().getCube(3,4,20));
         model.getMapModel().addTerrain(testTerrain, testCubes);
         model.getMapModel().addTerrain(anotherTestTerrain, testCubes);
         testCubes.remove(1);
@@ -72,6 +73,7 @@ public class View extends Application {
         scene = new Scene(mapView.getWindow(), 1000, 900);
         primaryStage.setScene(scene);
         controller.setScene(scene);
+        this.stage = primaryStage;
         primaryStage.show();
 
     }
@@ -102,6 +104,10 @@ public class View extends Application {
 
     public ChoiceBox getDisplayHeightField() {
         return (ChoiceBox) scene.lookup("#displayHeightField");
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     public static void main(String[] args) {
