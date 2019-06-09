@@ -1,6 +1,7 @@
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -111,6 +112,18 @@ public class Controller {
         model.getMapModel().addCreatureToList(creature);
         view.mapView.updateCreatures();
     }
+
+    public void addTerrain(ArrayList<Integer> moveCostArray,
+                           ArrayList<Boolean> isPassableArray,
+                           boolean eventOnStartTurn,
+                           boolean eventOnEnter,
+                           boolean eventOnEndTurn,
+                           String name,
+                           Color color){
+
+
+    }
+
 
     public Scene getScene() {
         return scene;
