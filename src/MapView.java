@@ -60,7 +60,7 @@ public class MapView {
         menuBar.getMenus().addAll(addMenu, helpMenu);
 
         options = new VBox(10);
-        options.setPrefWidth(100);
+        options.setPrefWidth(130);
         options.setAlignment(Pos.BASELINE_CENTER);
         options.setPadding(new Insets(0,10,0,5));
 
@@ -108,12 +108,24 @@ public class MapView {
             }
         });
         creaturesDropdown.setId("creaturesDropdown");
-        Button applyToSelected = new Button("Apply");
-
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
         separator1.setPadding(new Insets(10,0,5,0));
         separator1.setMaxWidth(80);
 
+        Button creatureMoveButton = new Button("Move");
+        Button creatureDeleteButton = new Button("Delete");
+        HBox creatureButtons = new HBox(10);
+        creatureButtons.setAlignment(Pos.BASELINE_CENTER);
+        creatureButtons.getChildren().addAll(creatureMoveButton, creatureDeleteButton);
+
+        Separator separator3 = new Separator(Orientation.HORIZONTAL);
+        separator3.setPadding(new Insets(10,0,5,0));
+        separator3.setMaxWidth(80);
+        Button applyToSelected = new Button("Apply");
+        Button terrainDeleteButton = new Button("Delete");
+        HBox terrainButtons = new HBox(10);
+        terrainButtons.setAlignment(Pos.BASELINE_CENTER);
+        terrainButtons.getChildren().addAll(applyToSelected, terrainDeleteButton);
         applyToSelected.setId("applyToSelected");
         Label selectShapeLabel = new Label("Shape Selection");
         String shapeOptions[] = {"Tile", "Circle", "Cylinder", "Sphere"};
@@ -149,16 +161,18 @@ public class MapView {
                 optionsHeader,
                 clickLabel,
                 clickOptionsDropdown,
-                terrain,
-                terrainsDropdown,
-                creature,
-                creaturesDropdown,
-                applyToSelected,
-                separator1,
                 selectShapeLabel,
                 shapeDropdown,
                 radius,
                 clearAll,
+                separator3,
+                terrain,
+                terrainsDropdown,
+                terrainButtons,
+                separator1,
+                creature,
+                creaturesDropdown,
+                creatureButtons,
                 separator2,
                 displayHeight,
                 displayHeightField,

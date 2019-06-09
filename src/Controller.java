@@ -133,7 +133,7 @@ public class Controller {
             creaturesToAdd.add(creature);
         }
         view.mapView.updateCreatures();
-        this.popupCreatureLocationGiver();
+        this.popupCreatureLocationGiver(creaturesToAdd.peek());
     }
 
     public void addTerrain(ArrayList<Integer> moveCostArray,
@@ -153,8 +153,8 @@ public class Controller {
     }
 
 
-    private void popupCreatureLocationGiver() {
-        currentPopup = new CreatureLocationPopup(view.getStage());
+    private void popupCreatureLocationGiver(Creature creatureToAdd) {
+        currentPopup = new CreatureLocationPopup(view.getStage(), creatureToAdd);
 
     }
 
@@ -175,7 +175,7 @@ public class Controller {
         currentPopup.hide();
         currentPopup = null;
         if(!(creaturesToAdd.isEmpty())) {
-            popupCreatureLocationGiver();
+            popupCreatureLocationGiver(creaturesToAdd.peek());
         }
     }
 

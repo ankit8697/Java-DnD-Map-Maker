@@ -14,9 +14,9 @@ public class CreatureLocationPopup extends Popup {
     Label heightFieldLabel;
     Stage owner;
 
-    public CreatureLocationPopup(Stage owner) {
+    public CreatureLocationPopup(Stage owner, Creature creatureToAdd) {
         VBox display = new VBox();
-        labelInstructions = new Label("Click the tile the creature should display in");
+        labelInstructions = new Label("Click the tile " + creatureToAdd + " should display in");
         heightFieldLabel = new Label("Height: ");
         heightField = new TextField("0");
         heightField.setPromptText("Height");

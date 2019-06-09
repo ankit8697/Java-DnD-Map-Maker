@@ -70,7 +70,7 @@ public class View extends Application {
         testCubes.get(0).getTile().setHighlighted(true, true);
         model.getMapModel().getCube(9,4,10).getTile().setHighlighted(false, true);
 
-        scene = new Scene(mapView.getWindow(), 1000, 900);
+        scene = new Scene(mapView.getWindow(), 1030, 900);
         primaryStage.setScene(scene);
         controller.setScene(scene);
         this.stage = primaryStage;
