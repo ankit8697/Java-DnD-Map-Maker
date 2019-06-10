@@ -170,6 +170,12 @@ public class Controller {
         int xPos = baseCube.getCoordinates()[0];
         int yPos = baseCube.getCoordinates()[1];
         int zPos = baseCube.getCoordinates()[2] + height/baseCube.getSideLength();
+        if(zPos < 0) {
+            zPos = 0;
+        }
+        if (zPos > model.getMapModel().getDimensions()[2]-1) {
+            zPos = model.getMapModel().getDimensions()[2]-1;
+        }
         Cube targetCube = model.getMapModel().getCube(xPos, yPos, zPos);
         model.getMapModel().moveCreature(creature, targetCube);
         currentPopup.hide();
