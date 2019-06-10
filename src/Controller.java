@@ -270,4 +270,80 @@ public class Controller {
         Text numberOfSelectedCubes = (Text) this.view.getScene().lookup("#numberOfSelectedCubes");
         numberOfSelectedCubes.setText("" + selectedCubes.size());
     }
+
+    public void shiftHeight() {
+        TextField shiftHeightField = (TextField) scene.lookup("#shiftHeightField");
+        int shiftHeight;
+        try {
+            shiftHeight = Integer.parseInt(shiftHeightField.getText());
+        } catch (NumberFormatException e) {
+            shiftHeight = 0;
+        }
+
+        List<Tile> tiles = view.getMapView().getTiles();
+        shiftHeight = shiftHeight / tiles.get(0).getCube().getSideLength();
+        for (Tile tile : tiles) {
+            int[] coordinates = tile.getCube().getCoordinates();
+            int zPos = coordinates[2] + shiftHeight;
+            if(zPos < 0) {
+                zPos = 0;
+            }
+            if (zPos > model.getMapModel().getDimensions()[2]-1) {
+                zPos = model.getMapModel().getDimensions()[2]-1;
+            }
+            Cube cube = model.getMapModel().getCube(coordinates[0], coordinates[1], zPos);
+            tile.setCube(cube);
+            tile.update();
+        }
+        for (Tile tileToUnhighlight: view.getMapView().getTiles()) {
+            tileToUnhighlight.setHighlighted(true, false);
+            tileToUnhighlight.setHighlighted(false, false);
+        }
+        for (Cube cube : selectedCubes) {
+            if (cube == cube.getTile().getCube()) {
+                cube.getTile().setHighlighted(true, true);
+            }
+            else {
+                cube.getTile().setHighlighted(false, true);
+            }
+        }
+    }
+
+    public void setHeight() {
+        TextField setHeightField = (TextField) scene.lookup("#setHeightField");
+        int setHeight;
+        try {
+            setHeight = Integer.parseInt(setHeightField.getText());
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        List<Tile> tiles = view.getMapView().getTiles();
+        setHeight = setHeight / tiles.get(0).getCube().getSideLength();
+        for (Tile tile : tiles) {
+            int[] coordinates = tile.getCube().getCoordinates();
+            int zPos = setHeight;
+            if(zPos < 0) {
+                zPos = 0;
+            }
+            if (zPos > model.getMapModel().getDimensions()[2]-1) {
+                zPos = model.getMapModel().getDimensions()[2]-1;
+            }
+            Cube cube = model.getMapModel().getCube(coordinates[0], coordinates[1], zPos);
+            tile.setCube(cube);
+            tile.update();
+        }
+        for (Tile tileToUnhighlight: view.getMapView().getTiles()) {
+            tileToUnhighlight.setHighlighted(true, false);
+            tileToUnhighlight.setHighlighted(false, false);
+        }
+        for (Cube cube : selectedCubes) {
+            if (cube == cube.getTile().getCube()) {
+                cube.getTile().setHighlighted(true, true);
+            }
+            else {
+                cube.getTile().setHighlighted(false, true);
+            }
+        }
+    }
 }

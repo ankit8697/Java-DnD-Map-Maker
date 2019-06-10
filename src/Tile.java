@@ -54,13 +54,17 @@ public class Tile extends Button {
         int[] coordinates = cube.getCoordinates();
         List<Cube> column = map.getColumn(coordinates[0], coordinates[1]);
         for (Cube cubeInColumn : column) {
-            cubeInColumn.setTile(null);
+            if (cubeInColumn != null) {
+                cubeInColumn.setTile(null);
+            }
         }
         this.cube = cube;
         coordinates = cube.getCoordinates();
         column = map.getColumn(coordinates[0], coordinates[1]);
         for (Cube cubeInColumn : column) {
-            cubeInColumn.setTile(this);
+            if (cubeInColumn != null) {
+                cubeInColumn.setTile(this);
+            }
         }
     }
 
@@ -71,12 +75,14 @@ public class Tile extends Button {
         display.getChildren().clear();
         this.updateTerrains(terrains);
         this.updateCreatures(creatures);
-        if (isStrongHighlighted) {
-            this.isStrongHighlighted = false;
+        boolean shouldBeWeakHighlighted = this.isWeakHighlighted;
+        boolean shouldBeStrongHighlighted = this.isStrongHighlighted;
+        this.isWeakHighlighted = false;
+        this.isStrongHighlighted = false;
+        if (shouldBeStrongHighlighted) {
             this.highlight(true);
         }
-        if (isWeakHighlighted) {
-            this.isWeakHighlighted = false;
+        if (shouldBeWeakHighlighted) {
             this.highlight(false);
         }
     }

@@ -255,4 +255,5 @@ public class MapModel {
     public int[] getDimensions() {
         return dimensions;
     }
+
 }

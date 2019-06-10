@@ -147,18 +147,24 @@ public class MapView {
         separator2.setPadding(new Insets(10,0,5,0));
         separator2.setMaxWidth(80);
 
-        Label displayHeight = new Label("Shift Height");
-        displayHeight.setWrapText(true);
-        TextField displayHeightField = new TextField();
-        displayHeightField.setId("displayHeightField");
+        Label shiftHeight = new Label("Shift Height");
+        shiftHeight.setWrapText(true);
+        TextField shiftHeightField = new TextField();
+        shiftHeightField.setId("shiftHeightField");
         Label setHeight = new Label("Set Height");
         TextField setHeightField = new TextField();
+        setHeightField.setId("setHeightField");
+        Button applyShiftHeight = new Button("Apply");
+        applyShiftHeight.setOnAction(e -> controller.shiftHeight());
+        Button applySetHeight = new Button("Apply");
+        applySetHeight.setOnAction(e -> controller.setHeight());
+
 
         Label clickLabel = new Label("Click Actions");
-        String[] clicks = { "Highlight", "Select", "Unselect"};
+        String[] clicks = {"Select", "Unselect", "Highlight"};
         ChoiceBox clickOptionsDropdown = new ChoiceBox(FXCollections.observableArrayList(clicks));
         clickOptionsDropdown.setId("clickOptionsDropdown");
-        clickOptionsDropdown.getSelectionModel().select(1);
+        clickOptionsDropdown.getSelectionModel().select(0);
 
         Text selectedCubes = new Text("Selected Cubes: ");
         Text numberOfSelectedCubes = new Text("0");
@@ -188,10 +194,12 @@ public class MapView {
                 creaturesDropdown,
                 creatureButtons,
                 separator2,
-                displayHeight,
-                displayHeightField,
+                shiftHeight,
+                shiftHeightField,
+                applyShiftHeight,
                 setHeight,
-                setHeightField
+                setHeightField,
+                applySetHeight
         );
 
         key = new VBox();
