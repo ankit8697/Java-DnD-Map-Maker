@@ -16,19 +16,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HelpView {
-    //@Override
-    public HelpView(View view) {
-        BorderPane window = new BorderPane();
-        Text helpTitle = new Text("Help");
-        helpTitle.setTextAlignment(TextAlignment.CENTER);
-        helpTitle.setFont(Font.font("Helvetica", FontWeight.BOLD, 20));
-        Text addMessage = new Text("If you would like to add a new player or monster to the map, " +
-                "please click Add from the main screen and select the type of object you would like to add");
-        Text leftBarMessage = new Text("From the left bar, you can interact with objects on the map from the Click Actions drop down," +
-                "select a type of terrain or a shape to highlight, or change the current height of the map");
-        Text tileDescription = new Text("All squares on the map will display any terrain affecting them.");
-        Text rightBarMessage = new Text("On the right side of the map you can find all current terrains on the map" +
-                "along with their names and colors");
+    Scene scene;
+    Stage stage;
+    Controller controller;
 
+    /*
+    Constructor method for HelpView that will let it use the controller
+     */
+    public HelpView(Controller controller) {
+        this.controller = controller;
+    }
+
+    /*
+    createWindow opens the HelpMenu when it is called. Method returns nothing
+     */
+    public void createWindow(){
+        stage = new Stage();
+        stage.setTitle("Help");
+        VBox help = new VBox();
+        help.setAlignment(Pos.BASELINE_CENTER);
+        help.setLayoutY(-60);
+        Text addMessage = new Text("How to Use the Map:\n" +
+                "    You can add creatures or terrains to the map by clicking the add button and selecting which type you'd like to add.\n" +
+                "    After filling out the form that pops up with your desired information (note, for display purposes it is best if your\n" +
+                "    creature display name is 1 letter max) and then choosing a height (for creatures only),\n" +
+                "    your new creature/terrain will be added into the appropriate dropdown on the side. All terrains will additionally\n" +
+                "    appear in the key with their name. From there you can use the apply/move/delete buttons to interact with the board.\n" +
+                "    You can also highlight and select tiles in various ways from the sidebar. Finally, you can also shift or set the height\n" +
+                "    of the map from the sidebar and everything on the map will adjust to reflect the change.");
+
+        help.getChildren().addAll(
+                addMessage
+        );
+        scene = new Scene(help, 900, 325);
+        stage.setScene(scene);
+        stage.show();
     }
 }

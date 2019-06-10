@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 public class CreatureCreatorView {
     Scene scene;
     Stage stage;
-
     Controller controller;
 
     public CreatureCreatorView(Controller controller) {

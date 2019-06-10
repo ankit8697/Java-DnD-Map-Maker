@@ -57,7 +57,14 @@ public class MapView {
             terrainView.createWindow();
         });
 
+        MenuItem addHelp = new MenuItem("How to Use");
+        addHelp.setOnAction(e -> {
+            HelpView helpView = new HelpView(controller);
+            helpView.createWindow();
+        });
+
         addMenu.getItems().addAll(addMenuCreature, addMenuTerrain);
+        helpMenu.getItems().addAll(addHelp);
         menuBar = new MenuBar();
         menuBar.getMenus().addAll(addMenu, helpMenu);
 
