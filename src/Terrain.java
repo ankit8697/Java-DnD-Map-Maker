@@ -11,6 +11,15 @@ public class Terrain {
     private Color color;
     private ArrayList<Cube> currentLocations;
 
+    /**
+     * @param moveCostArray The array of move costs of the terrain
+     * @param isPassableArray The array of booleans about whether the terrain is passable for different movement types
+     * @param eventOnStartTurn Boolean for whether the terrain triggers an event at the start of the turn
+     * @param eventOnEnter Boolean for whether the terrain triggers an event when entering it
+     * @param eventOnEndTurn Boolean for whether the terrain triggers an event at the end of the turn
+     * @param name Name of the terrain
+     * @param color Color of the terrain
+     */
     public Terrain(ArrayList<Integer> moveCostArray,
                    ArrayList<Boolean> isPassableArray,
                    boolean eventOnStartTurn,
@@ -72,6 +81,9 @@ public class Terrain {
         return currentLocations;
     }
 
+    /**
+     * @param currentLocations Tells the cubes that are in the terrain that they contain the terrain
+     */
     public void setCurrentLocations(ArrayList<Cube> currentLocations) {
         for (Cube cube : currentLocations) {
             cube.removeFromListOfTerrain(this);
@@ -82,11 +94,17 @@ public class Terrain {
         }
     }
 
+    /**
+     * @param cube The cube to which this terrain must be added
+     */
     public void addToCurrentLocations(Cube cube) {
         cube.addToListOfTerrain(this);
         this.currentLocations.add(cube);
     }
 
+    /**
+     * @param cube The cube from which this terrain must be removed
+     */
     public void removeFromCurrentLocations(Cube cube) {
         cube.removeFromListOfTerrain(this);
         this.currentLocations.remove(cube);
@@ -100,6 +118,9 @@ public class Terrain {
         this.name = name;
     }
 
+    /**
+     * Deleting this terrain from all cubes that contain it
+     */
     public void delete() {
         for (Cube cube : currentLocations) {
             cube.removeFromListOfTerrain(this);

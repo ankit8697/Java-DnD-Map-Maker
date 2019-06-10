@@ -33,6 +33,10 @@ public class MapView {
     private ObservableList<Creature> observableCreatureList;
     private ObservableList<Terrain> observableTerrainList;
 
+    /**
+     * @param model The model that MapView is using
+     * @param controller The controller that MapView is using
+     */
     public MapView(Model model, Controller controller) {
         this.model = model;
         this.controller = controller;
@@ -247,6 +251,9 @@ public class MapView {
         window.setRight(key);
     }
 
+    /**
+     * @param terrainsList Updates the terrain key when a terrain is added or removed
+     */
     public void updateKey(List<Terrain> terrainsList) {
         Label keyLabel = new Label("Key");
         keyLabel.setStyle("-fx-underline: true");
@@ -318,11 +325,17 @@ public class MapView {
     }
 
 
+    /**
+     * Updates the creatures in the Creatures Dropdown on changing the creatures
+     */
     public void updateCreatures() {
         this.observableCreatureList = FXCollections.observableArrayList(this.creatures);
         creaturesDropdown.setItems(this.observableCreatureList);
     }
 
+    /**
+     * Updates the terrains in the Terrains Dropdown on changing the terrains
+     */
     public void updateTerrain() {
         this.observableTerrainList = FXCollections.observableArrayList(this.terrains);
         terrainsDropdown.setItems(this.observableTerrainList);
