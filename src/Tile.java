@@ -23,6 +23,12 @@ public class Tile extends Button {
     private static final double WEAK_HIGHLIGHT_STRENGTH = 0.25;
 
 
+    /**
+     * @param cube
+     * @param display
+     * @param map
+     * Creates private tile object that knows what cube, display and map it's in
+     */
     private Tile(Cube cube, Node display, MapModel map) {
         super("", display);
         this.display = (StackPane) display;
@@ -42,14 +48,26 @@ public class Tile extends Button {
         this.update();
     }
 
+    /**
+     * @param cube
+     * @param map
+     */
     public Tile(Cube cube, MapModel map) {
         this(cube, new StackPane(), map);
     }
 
+    /**
+     * @return cube
+     * gets a cube from the tile
+     */
     public Cube getCube() {
         return cube;
     }
 
+    /**
+     * @param cube
+     * Sets cubes that belong to the tile
+     */
     public void setCube(Cube cube) {
         int[] coordinates = cube.getCoordinates();
         List<Cube> column = map.getColumn(coordinates[0], coordinates[1]);
@@ -68,6 +86,9 @@ public class Tile extends Button {
         }
     }
 
+    /**
+     * Updates tiles
+     */
     public void update() {
         List<Terrain> terrains = cube.getListOfTerrain();
         int[] coordinates = cube.getCoordinates();
@@ -87,6 +108,10 @@ public class Tile extends Button {
         }
     }
 
+    /**
+     * @param terrains
+     * Updates the terrains. Helper function of update
+     */
     private void updateTerrains(List<Terrain> terrains) {
         StackPane displayPane = new StackPane();
         int numTerrains = terrains.size();
@@ -101,6 +126,10 @@ public class Tile extends Button {
         display.getChildren().add(displayPane);
     }
 
+    /**
+     * @param creatures
+     * Updates creatures. Helper function of update
+     */
     private void updateCreatures(List<Creature> creatures) {
         VBox displayBox = new VBox();
         for (Creature creature : creatures) {
@@ -119,6 +148,10 @@ public class Tile extends Button {
         display.getChildren().add(displayBox);
     }
 
+    /**
+     * @param strong
+     * Highlights. helper function of update
+     */
     private void highlight(boolean strong) {
         if (!(isWeakHighlighted || isStrongHighlighted)) {
             double opacity;
@@ -143,6 +176,9 @@ public class Tile extends Button {
         }
     }
 
+    /**
+     * No params or returns. Unhighlights.
+     */
     private void unhighlight() {
         if (isStrongHighlighted || isWeakHighlighted) {
             display.getChildren().remove(display.getChildren().size() - 1);
@@ -151,6 +187,9 @@ public class Tile extends Button {
         isWeakHighlighted = false;
     }
 
+    /**
+     * No params or returns.
+     */
     private void removeStrongHighlight() {
         if (isWeakHighlighted) {
             display.getChildren().get(display.getChildren().size() - 1).setOpacity(WEAK_HIGHLIGHT_STRENGTH);
@@ -160,6 +199,9 @@ public class Tile extends Button {
         isStrongHighlighted = false;
     }
 
+    /**
+     * No params or returns
+     */
     private void removeWeakHighlight() {
         if (!isStrongHighlighted) {
             this.unhighlight();
@@ -167,10 +209,17 @@ public class Tile extends Button {
         isWeakHighlighted = false;
     }
 
+    /**
+     * @return isStrongHighlighted
+     */
     public boolean isStrongHighlighted() {
         return isStrongHighlighted;
     }
 
+    /**
+     * @param strong
+     * @param highlighted
+     */
     public void setHighlighted(boolean strong, boolean highlighted) {
         if (highlighted) {
             this.highlight(strong);
@@ -184,6 +233,9 @@ public class Tile extends Button {
         }
     }
 
+    /**
+     * No params or highlights
+     */
     public void toggleStrongHighlight() {
         if (isStrongHighlighted) {
             this.unhighlight();
@@ -193,6 +245,9 @@ public class Tile extends Button {
         }
     }
 
+    /**
+     * @return izWeakLighted
+     */
     public boolean isWeakHighlighted() {
         return isWeakHighlighted;
     }
