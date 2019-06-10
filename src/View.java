@@ -47,7 +47,7 @@ public class View extends Application {
         testCubes.add(model.getMapModel().getCube(5,4,0));
         testCubes.add(model.getMapModel().getCube(2,1,0));
         testCubes.add(model.getMapModel().getCube(5,1,0));
-        Creature testCreature = new Creature(false, 0, 0, 0, 0,
+        /*Creature testCreature = new Creature(false, 0, 0, 0, 0,
                 0, 0, 0, "Humanoid", attackDistances,
                 "TestName", "T1");
         Creature anotherTestCreature = new Creature(false, 0, 0, 0, 0,
@@ -55,8 +55,8 @@ public class View extends Application {
                 "TestName", "T2");
         Creature yetAnotherTestCreature = new Creature(false, 0, 0, 0, 0,
                 0, 0, 0, "Humanoid", attackDistances,
-                "TestName", "T3");
-        model.getMapModel().moveCreature(testCreature, model.getMapModel().getCube(3,4,1));
+                "TestName", "T3");*/
+//        model.getMapModel().moveCreature(testCreature, model.getMapModel().getCube(3,4,1));
 //        model.getMapModel().moveCreature(anotherTestCreature, model.getMapModel().getCube(3,4,13));
 //        model.getMapModel().moveCreature(yetAnotherTestCreature, model.getMapModel().getCube(3,4,20));
         model.getMapModel().addTerrain(testTerrain, testCubes);
@@ -67,10 +67,11 @@ public class View extends Application {
 
         ArrayList<Terrain> terrainsList = model.getMapModel().getTerrains();
         mapView.updateKey(terrainsList);
+        mapView.updateTerrain();
         testCubes.get(0).getTile().setHighlighted(true, true);
         model.getMapModel().getCube(9,4,10).getTile().setHighlighted(false, true);
 
-        scene = new Scene(mapView.getWindow(), 1030, 900);
+        scene = new Scene(mapView.getWindow(), 1050, 900);
         primaryStage.setScene(scene);
         controller.setScene(scene);
         this.stage = primaryStage;

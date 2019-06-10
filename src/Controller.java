@@ -250,10 +250,15 @@ public class Controller {
     }
 
     public void applySelectedTerrainToCubes() {
-
+        ChoiceBox terrainsDropdown = (ChoiceBox) view.getScene().lookup("#terrainsDropdown");
+        Terrain selectedTerrain = (Terrain) terrainsDropdown.getSelectionModel().getSelectedItem();
+        model.getMapModel().addTerrainToCubes(selectedTerrain, selectedCubes);
     }
 
     public void removeSelectedTerrain() {
+        ChoiceBox terrainsDropdown = (ChoiceBox) view.getScene().lookup("#terrainsDropdown");
+        Terrain selectedTerrain = (Terrain) terrainsDropdown.getSelectionModel().getSelectedItem();
+        model.getMapModel().removeTerrain(selectedTerrain);
     }
 
     public void clearAllSelections() {

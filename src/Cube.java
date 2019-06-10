@@ -57,6 +57,7 @@ public class Cube {
 
     public List<Terrain> removeFromListOfTerrain(Terrain terrain) {
         this.listOfTerrain.remove(terrain);
+        tile.update();
         return this.listOfTerrain;
     }
 

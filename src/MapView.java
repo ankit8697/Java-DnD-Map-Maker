@@ -62,7 +62,7 @@ public class MapView {
         menuBar.getMenus().addAll(addMenu, helpMenu);
 
         options = new VBox(10);
-        options.setPrefWidth(130);
+        options.setPrefWidth(150);
         options.setAlignment(Pos.BASELINE_CENTER);
         options.setPadding(new Insets(0,10,0,5));
 
@@ -160,13 +160,14 @@ public class MapView {
         clickOptionsDropdown.setId("clickOptionsDropdown");
         clickOptionsDropdown.getSelectionModel().select(1);
 
-        Text selectedCubes = new Text("Selected: ");
-        Text numberOfSelectedCubes = new Text();
+        Text selectedCubes = new Text("Selected Cubes: ");
+        Text numberOfSelectedCubes = new Text("0");
         numberOfSelectedCubes.setId("numberOfSelectedCubes");
-
         HBox selectedCubeCounter = new HBox();
+        selectedCubeCounter.setAlignment(Pos.BASELINE_CENTER);
         selectedCubeCounter.getChildren().addAll(selectedCubes, numberOfSelectedCubes);
-        Button clearAll = new Button("Clear All");
+
+        Button clearAll = new Button("Clear Highlights");
         clearAll.setOnAction(event -> controller.clearAllSelections());
         clearAll.setId("clearAll");
         options.getChildren().addAll(
@@ -177,6 +178,7 @@ public class MapView {
                 shapeDropdown,
                 radius,
                 clearAll,
+                selectedCubeCounter,
                 separator3,
                 terrain,
                 terrainsDropdown,
@@ -189,8 +191,7 @@ public class MapView {
                 displayHeight,
                 displayHeightField,
                 setHeight,
-                setHeightField,
-                selectedCubeCounter
+                setHeightField
         );
 
         key = new VBox();

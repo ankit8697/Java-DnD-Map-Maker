@@ -55,7 +55,6 @@ public class MapModel {
 
     public void addTerrain(Terrain terrain, List<Cube> cubes) {
         for(Cube cube : cubes) {
-            cube.addToListOfTerrain(terrain);
             terrain.addToCurrentLocations(cube);
         }
         addTerrain(terrain);
@@ -68,6 +67,7 @@ public class MapModel {
 
     public void removeTerrain(Terrain terrain) {
         terrains.remove(terrain);
+        terrain.delete();
         view.getMapView().updateKey(terrains);
     }
 
@@ -77,11 +77,6 @@ public class MapModel {
 
     public void addCreatureToList(Creature creature) {
         creatures.add(creature);
-    }
-
-    public void deleteTerrain(Terrain terrain) {
-        terrain.delete();
-        terrains.remove(terrain);
     }
 
     public void deleteCreature(Creature creature) {
@@ -237,13 +232,13 @@ public class MapModel {
         terrainToMove.setCurrentLocations(destCubes);
     }
 
-    public void addTerrainToCubes(ArrayList<Cube> newCubes, Terrain terrainToAdd){
+    public void addTerrainToCubes(Terrain terrainToAdd, List<Cube> newCubes){
         for(Cube cube: newCubes){
             terrainToAdd.addToCurrentLocations(cube);
         }
     }
 
-    public void removeTerrainFromCubes(ArrayList<Cube> oldCubes, Terrain terrainToRemove){
+    public void removeTerrainFromCubes(Terrain terrainToRemove, List<Cube> oldCubes){
         for(Cube cube: oldCubes){
             terrainToRemove.removeFromCurrentLocations(cube);
         }
