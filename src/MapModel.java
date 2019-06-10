@@ -150,6 +150,11 @@ public class MapModel {
         int targetHeight = dimensions[2]-1;
         ArrayList<Cube> column = map.get(x).get(y);
         int currentHeight = column.size();
+        for (int i = 0; i < currentHeight; i++) {
+            if(column.get(i) == null) {
+                column.set(i, makeCube(x,y,i));
+            }
+        }
         for (int i = currentHeight; i <= targetHeight; i++) {
             column.add(makeCube(x, y, i));
         }

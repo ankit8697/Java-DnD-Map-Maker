@@ -22,6 +22,7 @@ public class Controller {
     public Controller(View view) {
         this.view = view;
         this.model = view.getModel();
+        selectedCubes = new ArrayList<>();
         scene = view.getScene();
         selectedCubes = new ArrayList<>();
         creaturesToAdd = new ArrayDeque<>();
@@ -31,11 +32,18 @@ public class Controller {
         if (creaturesToAdd.isEmpty()) {
             ChoiceBox clickOptions = (ChoiceBox) scene.lookup("#clickOptionsDropdown");
             String selectedOption = (String) clickOptions.getValue();
+            ArrayList<Cube> cubes;
+            Text numberOfSelectedCubes;
             switch (selectedOption) {
-                case "Move":
-                    break;
                 case "Highlight":
-                    ArrayList<Cube> cubes = getCubesInShape(tile);
+                    if (selectedCubes.size() != 0) {
+                        for (Cube cubeToUnhighlight: selectedCubes) {
+                            cubeToUnhighlight.getTile().setHighlighted(true, false);
+                            cubeToUnhighlight.getTile().setHighlighted(false, false);
+                        }
+                        selectedCubes.clear();
+                    }
+                    cubes = getCubesInShape(tile);
                     for (Cube cube : cubes) {
                         if (cube == cube.getTile().getCube()) {
                             cube.getTile().toggleStrongHighlight();
@@ -43,12 +51,46 @@ public class Controller {
                     }
                     break;
                 case "Select":
+                    cubes = getCubesInShape(tile);
+                    for (Cube cube : cubes) {
+                        if (!(selectedCubes.contains(cube))) {
+                            selectedCubes.add(cube);
+                        }
+                    }
+                    for (Tile tileToUnhighlight: view.getMapView().getTiles()) {
+                        tileToUnhighlight.setHighlighted(true, false);
+                        tileToUnhighlight.setHighlighted(false, false);
+                    }
+                    for (Cube cube : selectedCubes) {
+                        if (cube == cube.getTile().getCube()) {
+                            cube.getTile().setHighlighted(true, true);
+                        }
+                        else {
+                            cube.getTile().setHighlighted(false, true);
+                        }
+                    }
                     break;
                 case "Unselect":
-                    break;
-                case "Delete":
+                    cubes = getCubesInShape(tile);
+                    for (Cube cube : cubes) {
+                        selectedCubes.remove(cube);
+                    }
+                    for (Tile tileToUnhighlight: view.getMapView().getTiles()) {
+                        tileToUnhighlight.setHighlighted(true, false);
+                        tileToUnhighlight.setHighlighted(false, false);
+                    }
+                    for (Cube cube : selectedCubes) {
+                        if (cube == cube.getTile().getCube()) {
+                            cube.getTile().setHighlighted(true, true);
+                        }
+                        else {
+                            cube.getTile().setHighlighted(false, true);
+                        }
+                    }
                     break;
             }
+            numberOfSelectedCubes = (Text) this.view.getScene().lookup("#numberOfSelectedCubes");
+            numberOfSelectedCubes.setText("" + selectedCubes.size());
         } else {
             giveCreatureALocation(creaturesToAdd.poll(), tile);
         }
@@ -133,7 +175,7 @@ public class Controller {
             creaturesToAdd.add(creature);
         }
         view.mapView.updateCreatures();
-        this.popupCreatureLocationGiver();
+        this.popupCreatureLocationGiver(creaturesToAdd.peek());
     }
 
     public void addTerrain(ArrayList<Integer> moveCostArray,
@@ -153,8 +195,8 @@ public class Controller {
     }
 
 
-    private void popupCreatureLocationGiver() {
-        currentPopup = new CreatureLocationPopup(view.getStage());
+    private void popupCreatureLocationGiver(Creature creatureToAdd) {
+        currentPopup = new CreatureLocationPopup(view.getStage(), creatureToAdd);
 
     }
 
@@ -181,7 +223,7 @@ public class Controller {
         currentPopup.hide();
         currentPopup = null;
         if(!(creaturesToAdd.isEmpty())) {
-            popupCreatureLocationGiver();
+            popupCreatureLocationGiver(creaturesToAdd.peek());
         }
     }
 
@@ -191,5 +233,36 @@ public class Controller {
 
     public void setScene(Scene scene) {
         this.scene = scene;
+    }
+
+    public void moveSelectedCreature() {
+        ChoiceBox creaturesDropdown = (ChoiceBox) view.getScene().lookup("#creaturesDropdown");
+        Creature selectedCreature = (Creature) creaturesDropdown.getSelectionModel().getSelectedItem();
+        creaturesToAdd.add(selectedCreature);
+        popupCreatureLocationGiver(creaturesToAdd.peek());
+    }
+
+    public void deleteSelectedCreature() {
+        ChoiceBox creaturesDropdown = (ChoiceBox) view.getScene().lookup("#creaturesDropdown");
+        Creature selectedCreature = (Creature) creaturesDropdown.getSelectionModel().getSelectedItem();
+        model.getMapModel().deleteCreature(selectedCreature);
+        view.mapView.updateCreatures();
+    }
+
+    public void applySelectedTerrainToCubes() {
+
+    }
+
+    public void removeSelectedTerrain() {
+    }
+
+    public void clearAllSelections() {
+        selectedCubes.clear();
+        for (Tile tile: view.getMapView().getTiles()) {
+            tile.setHighlighted(true, false);
+            tile.setHighlighted(false, false);
+        }
+        Text numberOfSelectedCubes = (Text) this.view.getScene().lookup("#numberOfSelectedCubes");
+        numberOfSelectedCubes.setText("" + selectedCubes.size());
     }
 }
