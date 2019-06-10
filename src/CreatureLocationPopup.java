@@ -14,6 +14,10 @@ public class CreatureLocationPopup extends Popup {
     Label heightFieldLabel;
     Stage owner;
 
+    /**
+     * @param owner The stage in which the popup shows up
+     * @param creatureToAdd The creature that must be added to the tile that will be selected
+     */
     public CreatureLocationPopup(Stage owner, Creature creatureToAdd) {
         VBox display = new VBox();
         labelInstructions = new Label("Click the tile " + creatureToAdd + " should display in");
@@ -33,6 +37,9 @@ public class CreatureLocationPopup extends Popup {
         this.show(owner, owner.getX()+owner.getWidth()/2 - 100, owner.getY() + 20);
     }
 
+    /**
+     * @return TextField that contains the height of the creature
+     */
     public TextField getHeightField() {
         return heightField;
     }

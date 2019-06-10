@@ -30,7 +30,7 @@ public class HelpView {
     /*
     createWindow opens the HelpMenu when it is called. Method returns nothing
      */
-    public void createWindow(){
+    public void createWindow() {
         stage = new Stage();
         stage.setTitle("Help");
         VBox help = new VBox();

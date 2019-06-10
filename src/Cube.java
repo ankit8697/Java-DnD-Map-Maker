@@ -69,6 +69,12 @@ public class Cube {
         return sideLength;
     }
 
+    /**
+     * @param x x index of the cube
+     * @param y y index of the cube
+     * @param z z index of the cube
+     * @return Get the euclidean distance between the current cube and the cube at the inputted coordinates
+     */
     public double getEuclideanDistanceToLocation(int x, int y, int z) {
         double distance = Math.sqrt(Math.pow((x - this.coordinates[0]), 2) +
                 Math.pow((y - this.coordinates[1]), 2) +
@@ -77,6 +83,12 @@ public class Cube {
         return feetDistance;
     }
 
+    /**
+     * @param x x index of the cube
+     * @param y y index of the cube
+     * @param z z index of the cube
+     * @return Get the D&D distance from the current cube to cube at the inputted coordinates
+     */
     public double getDNDDistanceToLocation(int x, int y, int z) { // D&D does diagonals weirdly - don't ask
         ArrayList<Integer> distanceList = new ArrayList<>();
         int[] distances = {x - this.coordinates[0], y - this.coordinates[1], z - this.coordinates[2]};

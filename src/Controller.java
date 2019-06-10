@@ -3,6 +3,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
 
 import java.util.ArrayDeque;
@@ -19,6 +20,9 @@ public class Controller {
     Queue<Creature> creaturesToAdd;
     CreatureLocationPopup currentPopup;
 
+    /**
+     * @param view The view that displays all the windows of the application.
+     */
     public Controller(View view) {
         this.view = view;
         this.model = view.getModel();
@@ -28,6 +32,9 @@ public class Controller {
         creaturesToAdd = new ArrayDeque<>();
     }
 
+    /**
+     * @param tile The tile that is being clicked by the user
+     */
     public void onTileClick(Tile tile) {
         if (creaturesToAdd.isEmpty()) {
             ChoiceBox clickOptions = (ChoiceBox) scene.lookup("#clickOptionsDropdown");
@@ -96,14 +103,24 @@ public class Controller {
         }
     }
 
+    /**
+     * @return Getter for cubes selected by the user
+     */
     public List<Cube> getSelectedCubes() {
         return selectedCubes;
     }
 
+    /**
+     * @param selectedCubes Set the cubes selected by the user to the list of selected cubes
+     */
     public void setSelectedCubes(List<Cube> selectedCubes) {
         this.selectedCubes = selectedCubes;
     }
 
+    /**
+     * @param tile The tile being clicked on by the user when highlighting a shape
+     * @return An ArrayList of Cubes that are included in the highlighted shape
+     */
     public ArrayList<Cube> getCubesInShape(Tile tile) {
         ChoiceBox shape = (ChoiceBox) scene.lookup("#shapeDropdown");
         String value = (String) shape.getValue();
@@ -146,6 +163,21 @@ public class Controller {
         }
     }
 
+    /**
+     * @param isPlayer Check if creature is a player or not
+     * @param hp HP of the creature
+     * @param initiativeBonus The initiative bonus of the creature
+     * @param walkSpeed The walk speed of the creature
+     * @param swimSpeed The swim speed of the creature
+     * @param flySpeed The fly speed of the creature
+     * @param burrowSpeed The burrow speed of the creature
+     * @param climbSpeed The climb speed of the creature
+     * @param creatureType The creature type of the creature
+     * @param attackDistances The attack distances that the creature has
+     * @param name The name of the creature
+     * @param displayName The name that will be displayed on the map (kept short to make it fit)
+     * @param numberOfCreatures How many of this creature is on the map
+     */
     public void addCreature(boolean isPlayer,
                             int hp,
                             int initiativeBonus,
@@ -178,6 +210,15 @@ public class Controller {
         this.popupCreatureLocationGiver(creaturesToAdd.peek());
     }
 
+    /**
+     * @param moveCostArray Check if there is a move cost to the terrain in the order of movements
+     * @param isPassableArray Check if the terrain is passable in the order of movements
+     * @param eventOnStartTurn Check if there are any events on the start of the turn when on the terrain
+     * @param eventOnEnter Check if there are any events on entering the terrain
+     * @param eventOnEndTurn Check if there are any events on the end of the turn when on the terrain
+     * @param name Name of the terrain
+     * @param color Color of the terrain
+     */
     public void addTerrain(ArrayList<Integer> moveCostArray,
                            ArrayList<Boolean> isPassableArray,
                            boolean eventOnStartTurn,
@@ -195,11 +236,18 @@ public class Controller {
     }
 
 
+    /**
+     * @param creatureToAdd The creature that must be added to the map
+     */
     private void popupCreatureLocationGiver(Creature creatureToAdd) {
         currentPopup = new CreatureLocationPopup(view.getStage(), creatureToAdd);
 
     }
 
+    /**
+     * @param creature The creature to be added to the map
+     * @param tile The tile that the creature must be added to
+     */
     private void giveCreatureALocation(Creature creature, Tile tile) {
         Cube baseCube = tile.getCube();
         TextField heightField = currentPopup.getHeightField();
@@ -227,14 +275,23 @@ public class Controller {
         }
     }
 
+    /**
+     * @return Returns the scene being used by the controller
+     */
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     * @param scene Changes the scene being used by the controller
+     */
     public void setScene(Scene scene) {
         this.scene = scene;
     }
 
+    /**
+     * Moves the selected creature to another space
+     */
     public void moveSelectedCreature() {
         ChoiceBox creaturesDropdown = (ChoiceBox) view.getScene().lookup("#creaturesDropdown");
         Creature selectedCreature = (Creature) creaturesDropdown.getSelectionModel().getSelectedItem();
@@ -242,6 +299,9 @@ public class Controller {
         popupCreatureLocationGiver(creaturesToAdd.peek());
     }
 
+    /**
+     * Deletes all creatures that have been selected
+     */
     public void deleteSelectedCreature() {
         ChoiceBox creaturesDropdown = (ChoiceBox) view.getScene().lookup("#creaturesDropdown");
         Creature selectedCreature = (Creature) creaturesDropdown.getSelectionModel().getSelectedItem();
@@ -249,18 +309,27 @@ public class Controller {
         view.mapView.updateCreatures();
     }
 
+    /**
+     * Applies the selected terrain to the cubes that have been selected
+     */
     public void applySelectedTerrainToCubes() {
         ChoiceBox terrainsDropdown = (ChoiceBox) view.getScene().lookup("#terrainsDropdown");
         Terrain selectedTerrain = (Terrain) terrainsDropdown.getSelectionModel().getSelectedItem();
         model.getMapModel().addTerrainToCubes(selectedTerrain, selectedCubes);
     }
 
+    /**
+     * Removes the selected terrain from the cubes that have been selected
+     */
     public void removeSelectedTerrain() {
         ChoiceBox terrainsDropdown = (ChoiceBox) view.getScene().lookup("#terrainsDropdown");
         Terrain selectedTerrain = (Terrain) terrainsDropdown.getSelectionModel().getSelectedItem();
         model.getMapModel().removeTerrain(selectedTerrain);
     }
 
+    /**
+     * Clears all selections and highlights
+     */
     public void clearAllSelections() {
         selectedCubes.clear();
         for (Tile tile: view.getMapView().getTiles()) {
@@ -271,6 +340,9 @@ public class Controller {
         numberOfSelectedCubes.setText("" + selectedCubes.size());
     }
 
+    /**
+     * Shifts the height of the map according to inputted value
+     */
     public void shiftHeight() {
         TextField shiftHeightField = (TextField) scene.lookup("#shiftHeightField");
         int shiftHeight;
@@ -309,6 +381,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Sets the height of the map to the inputted value
+     */
     public void setHeight() {
         TextField setHeightField = (TextField) scene.lookup("#setHeightField");
         int setHeight;

@@ -17,6 +17,9 @@ public class CreatureCreatorView {
         this.controller = controller;
     }
 
+    /**
+     * Creates the Creature Creator View
+     */
     public void createWindow() {
         stage = new Stage();
         stage.setTitle("Create Creature");
@@ -92,6 +95,9 @@ public class CreatureCreatorView {
         stage.show();
     }
 
+    /**
+     * Handles the onClick event of the submit button
+     */
     public void clickSubmit() {
         CheckBox isPlayerCheckBox = (CheckBox) scene.lookup("#isPlayerCheckBox");
         boolean isPlayer = isPlayerCheckBox.isSelected();
