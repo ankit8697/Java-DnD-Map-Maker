@@ -1,27 +1,33 @@
-import javafx.application.Application;
-import javafx.collections.FXCollections;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.ArrayList;
-import java.util.List;
 
+
+/**
+ * Constructor method
+ * Takes in a scene, a stage and a controller
+ */
 public class TerrainCreatorView {
     Scene scene;
     Stage stage;
     Controller controller;
 
+    /**
+     * @param controller
+     */
     public TerrainCreatorView(Controller controller) {
         this.controller = controller;
     }
+
+    /**
+     * Creates the actual window that pops up and allows for terrain creator. No parameters or returns
+     */
     public void createWindow() {
         stage = new Stage();
         stage.setTitle("Create Terrain");
@@ -149,12 +155,16 @@ public class TerrainCreatorView {
                 submit
         );
 
-
+        //show stage after everything is added to it
 
         scene = new Scene(terrain, 900, 300);
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     * Handles the submit button. No parameters or returns
+     */
     public void clickSubmit() {
         TextField terrainName = (TextField) scene.lookup("#terrainName");
         String name = terrainName.getText();

@@ -1,34 +1,25 @@
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HelpView {
     Scene scene;
     Stage stage;
     Controller controller;
 
-    /*
-    Constructor method for HelpView that will let it use the controller
+    /**
+     * @param controller
+     * Constructor method for HelpView that will let it use the controller
      */
     public HelpView(Controller controller) {
         this.controller = controller;
     }
 
-    /*
-    createWindow opens the HelpMenu when it is called. Method returns nothing
+    /**
+     * createWindow opens the HelpMenu when it is called. Method returns nothing
      */
     public void createWindow() {
         stage = new Stage();
