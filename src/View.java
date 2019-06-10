@@ -20,6 +20,9 @@ public class View extends Application {
         mapView = new MapView(model, controller);
     }
 
+    /**
+     * @param primaryStage This is the stage that everything in the scene is displayed on
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("D&D Combat Map");
