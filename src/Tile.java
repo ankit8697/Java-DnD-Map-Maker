@@ -84,9 +84,8 @@ public class Tile extends Button {
     private void updateTerrains(List<Terrain> terrains) {
         StackPane displayPane = new StackPane();
         int numTerrains = terrains.size();
-        double scaleFactor = Math.sqrt(numTerrains-1)/Math.sqrt(numTerrains);
         for (int i = 0; i < numTerrains; i++) {
-            double scale = Math.pow(scaleFactor, i) * 1;
+            double scale = Math.sqrt(numTerrains-i)/Math.sqrt(numTerrains);
             Rectangle shape = new Rectangle();
             shape.widthProperty().bind(this.widthProperty().subtract(2).multiply(scale));
             shape.heightProperty().bind(this.heightProperty().subtract(2).multiply(scale));
